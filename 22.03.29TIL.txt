@@ -137,3 +137,18 @@ While문
     || : or
     ! : 부정 (불리언)
     !! : 불리언값으로 변환
+
++git
+    git init
+        으로 현재 디렉토리에 깃을시작
+    git add 파일이름
+        로 파일들을 커밋대기상태로 변경
+    git commit "업데이트 요약"
+        으로 파일들을 커밋함.
+    git branch -M main
+        으로 메인브랜치를 만들어줌.
+    git remote add origin 깃주소
+        로 원격저장소와 연결시킴
+    git push -u origin main
+        으로 푸쉬하면 작업 끗!
+        
