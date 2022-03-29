@@ -143,7 +143,7 @@ While문
         으로 현재 디렉토리에 깃을시작
     git add 파일이름
         로 파일들을 커밋대기상태로 변경
-    git commit "업데이트 요약"
+    git commit -m "업데이트 요약"
         으로 파일들을 커밋함.
     git branch -M main
         으로 메인브랜치를 만들어줌.
@@ -151,4 +151,5 @@ While문
         로 원격저장소와 연결시킴
     git push -u origin main
         으로 푸쉬하면 작업 끗!
-        
+
+    한번 연결한 뒤에는 add > commit > push만 진행해주면 된다.
