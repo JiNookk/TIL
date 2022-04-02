@@ -1,110 +1,118 @@
 내장함수 (built in function)
-wrapper
-    런타임 환경 : node or 브라우저
-    우리가 JS 코드를 작성하면 JS 런타임 환경에서 작동한다.
-    내장 객체 : JS가 기본적으로 갖추고 있는 유용한 객체들
-    호스트 객체 : 네트워크 or 통신을 위해 런타임 환경안의 별도 호스트 객체를 이용한 녀석들
-        Node API, browser API
-    래퍼객체 (Wrapper Object)
-    원시값들을 필요에 따라 관련 빌트인 객체로 변환한다.
-    안쓸때는 다시 원시값으로 변환
-    Why? : 객체를 여러개 만들어 놓으면 프로그램이 뚱뚱해지므로 필요시에만 사용한다.
+    wrapper
+        런타임 환경 : node or 브라우저
+        우리가 JS 코드를 작성하면 JS 런타임 환경에서 작동한다.
+        내장 객체 : JS가 기본적으로 갖추고 있는 유용한 객체들
+        호스트 객체 : 네트워크 or 통신을 위해 런타임 환경안의 별도 호스트 객체를 이용한 녀석들
+            Node API, browser API
+        래퍼객체 (Wrapper Object)
+        원시값들을 필요에 따라 관련 빌트인 객체로 변환한다.
+        안쓸때는 다시 원시값으로 변환
+        Why? : 객체를 여러개 만들어 놓으면 프로그램이 뚱뚱해지므로 필요시에만 사용한다.
 
-global
-    global이란? : 전역적으로 사용할 수 있는 객체, 변수
-    console.log(globalThis)
-        노드에서는 글로벌 객체, 브라우저에서는 윈도우를 가리킴.
-        글로벌 객체에 내장된 API들이 정말 다양하다
-    console.log(this)
-        노드에서는 현재 모듈정보, 브라우저에서는 윈도우(전역 객체) 출력
-    eval : 문자열을 JS코드로 인식해서 진행하는 함수
-    URL : URI 하위개념
-        아스키 문자로만 구성
-        한글이나 특수문자는 이스케이프 처리해야함
-            이스케이프 : 아마도 아스키 문자화 하는듯?
-        인코딩 : 아스키문자화
-        디코딩 : 한글 or 특수문자로 되돌림
-        전체 url이 아닌 부분적인 것은 component 함수를 이용해야 한다.
+    global
+        global이란? : 전역적으로 사용할 수 있는 객체, 변수
+        console.log(globalThis)
+            노드에서는 글로벌 객체, 브라우저에서는 윈도우를 가리킴.
+            글로벌 객체에 내장된 API들이 정말 다양하다
+        console.log(this)
+            노드에서는 현재 모듈정보, 브라우저에서는 윈도우(전역 객체) 출력
+        eval : 문자열을 JS코드로 인식해서 진행하는 함수
+        URL : URI 하위개념
+            아스키 문자로만 구성
+            한글이나 특수문자는 이스케이프 처리해야함
+                이스케이프 : 아마도 아스키 문자화 하는듯?
+            인코딩 : 아스키문자화
+            디코딩 : 한글 or 특수문자로 되돌림
+            전체 url이 아닌 부분적인 것은 component 함수를 이용해야 한다.
 
-        ++ global 보면서 전역 객체들 참고
+            ++ global 보면서 전역 객체들 참고
 
-boolean
-    Boolean : 불리언의 Wrapper 객체
-    .찍어보면 내장함수 나옴
+    boolean
+        Boolean : 불리언의 Wrapper 객체
+        .찍어보면 내장함수 나옴
 
-number
-    MDN 참고, static properties : 클래스 레벨의 속성들
-    epsilon 사용이유 : 십진수를 이진수로 변환해서 사용하므로
-        연산시 부동소수점을 맞추기가 힘들다. 조금의 오차가 발생하는데
-        입실론 보다 작으면 오차가 없다고 간주한다.
+    number
+        MDN 참고, static properties : 클래스 레벨의 속성들
+        epsilon 사용이유 : 십진수를 이진수로 변환해서 사용하므로
+            연산시 부동소수점을 맞추기가 힘들다. 조금의 오차가 발생하는데
+            입실론 보다 작으면 오차가 없다고 간주한다.
 
-math
-    mdn 참고
+    math
+        mdn 참고
 
-string
-    굉장히 많이쓸것.
-    함수 내용이 궁금하면 컨 클릭으로 내용을 확인하자.
-    메서드들
-        charAt : n 번째 위치의 문자를 반환하는 메서드들
-        indexOf : 첫 번째 ~문자가 몇번째 순서에 있는지 반환하는 함수
-        lastIndexOf : 뒤에서부터 첫번째 ~ 문자가 앞에서 몇번째인지 반환하는 함수
-        include : 특정 문자열을 포함했는지 여부 불리언 반환
-        startsWith, endsWith  : 특정 문자열로 시작하거나 끝나는지 문자열로 반환
-        toUpperCase,toLowerCase : 대소문자화
-        substring,slice : 문자열 자를때
-        trim : 공백제거
-        split : 특정 문자로 문자열을 나누고 싶을 때. 몇덩어리 가져올지도 지정가능
+    string
+        굉장히 많이쓸것.
+        함수 내용이 궁금하면 컨 클릭으로 내용을 확인하자.
+        메서드들
+            charAt : n 번째 위치의 문자를 반환하는 메서드들
+            indexOf : 첫 번째 ~문자가 몇번째 순서에 있는지 반환하는 함수
+            lastIndexOf : 뒤에서부터 첫번째 ~ 문자가 앞에서 몇번째인지 반환하는 함수
+            include : 특정 문자열을 포함했는지 여부 불리언 반환
+            startsWith, endsWith  : 특정 문자열로 시작하거나 끝나는지 문자열로 반환
+            toUpperCase,toLowerCase : 대소문자화
+            substring,slice : 문자열 자를때
+            trim : 공백제거
+            split : 특정 문자로 문자열을 나누고 싶을 때. 몇덩어리 가져올지도 지정가능
 
-date
-    MDN참고. 세계협정시인 UTC를 기준으로 값이 반환되므로 주의.
+    date
+        MDN참고. 세계협정시인 UTC를 기준으로 값이 반환되므로 주의.
 
-quiz
-    setInterval함수를 통해 일정한 주기마다 특정 활동을 진행할 수 있다.
+    quiz
+        setInterval함수를 통해 일정한 주기마다 특정 활동을 진행할 수 있다.
 
-배열
-    자료구조 : que형태(FIFO), stack 형태 ...
-        우리는 배열을 만들어서 데이터를 담아 둘 것이다.
-        단 배열에는 같은 타입의 데이터를 모으는것이 좋다.
-array
-    배열 생성 방법(선언했다는 가정하)
-    array = new Array(배열 크기)
-    array = new Array(1,2,3,...)
-    array = Array.of(1,2,3,...)
-    const arrayname = [~~]
-    array = Array.from(arrayname)
+    배열
+        자료구조 : que형태(FIFO), stack 형태 ...
+            우리는 배열을 만들어서 데이터를 담아 둘 것이다.
+            단 배열에는 같은 타입의 데이터를 모으는것이 좋다.
+    array
+        배열 생성 방법(선언했다는 가정하)
+        array = new Array(배열 크기)
+        array = new Array(1,2,3,...)
+        array = Array.of(1,2,3,...)
+        const arrayname = [~~]
+        array = Array.from(arrayname)
 
-    array = Array.from({
-    0: '안',
-    1: '녕',
-    length: 2,
-    });
-    이런식으로 배열도 객체와 굉장히 비슷한 구조이다.
+        array = Array.from({
+        0: '안',
+        1: '녕',
+        length: 2,
+        });
+        이런식으로 배열도 객체와 굉장히 비슷한 구조이다.
 
-add
-    배열 아이템을 참조하는 방법
-    array[n]
-    array.length : for문을 이용하면 효과적이다.
+    add
+        배열 아이템을 참조하는 방법
+        array[n]
+        array.length : for문을 이용하면 효과적이다.
 
-    배열에 직접 접근해서 데이터를 조작하는건 굉장히 좋지 않은 방식이다.
+        배열에 직접 접근해서 데이터를 조작하는건 굉장히 좋지 않은 방식이다.
 
-array-method
-    메서드
-        isArray : 특정한 오브젝트가 배열인지 체크
-        indexOf : 특정한 아이템의 위치를 찾을때
-        includes : 배열안에 특정한 아에팀이 있는지 체크
-        push : 추가 - 제일 뒤
-        unshift : 추가 - 제일 앞
-        pop : 제거 - 제일 뒤
-        shift : 제거 - 제일 앞
-        splice : 중간에 추가 또는 삭제
-        slice : 잘라진 새로운 배열을 만듬
-        concat : 여러개의 배열을 붙여줌
-        reverse : 순서를 거꾸로
-        fill : 특정한 값으로 배열을 채우기
-        join : 배열을 문자열로 합하기
+    array-method
+        메서드
+            isArray : 특정한 오브젝트가 배열인지 체크
+            indexOf : 특정한 아이템의 위치를 찾을때
+            includes : 배열안에 특정한 아에팀이 있는지 체크
+            push : 추가 - 제일 뒤
+            unshift : 추가 - 제일 앞
+            pop : 제거 - 제일 뒤
+            shift : 제거 - 제일 앞
+            splice : 중간에 추가 또는 삭제
+            slice : 잘라진 새로운 배열을 만듬
+            concat : 여러개의 배열을 붙여줌
+            reverse : 순서를 거꾸로
+            fill : 특정한 값으로 배열을 채우기
+            join : 배열을 문자열로 합하기
 
 
-shallow
-quiz
+    shallow
+        얇은 복사를 의미한다. 객체를 복사할 땐 항상 얇은 복사가 일어남
+            얇은 복사 : 객체의 메모리주소만 전달을 의미한다
+            앞서 모여준 메서드들도 얇은복사가 일어난다.
+            아무리 많은 객체가 중첩되어 있어도 항상 메모리 주소가 복사되어 진행
+
+    quiz
+        배열도 함수인자로 편하게 사용이 가능하다. 생각의 폭을 넓히자.
+        빈배열은 인자로 넣지않고 그냥 선언해도 상관없다.
+
 hof
 quiz
