@@ -1,0 +1,279 @@
+고차함수(high order function)
+고차함수란
+    인자로 함수를 받거나(콜백함수) 함수를 반환하는 함수
+    함수들을 엮어서 프로그래밍 하는 것을 함수형 프로그래밍이라 한다.
+    순수함수를 잘 유지해야 함수형 프로그래밍이 가능
+    순수함수 : 불변성 유지(데이터 변경, 변수 사용, 조건문, 반복문 사용 x)
+
+    >>> 콜백함수내용을 더 사용하기 편하게 조작하는 함수!
+    기본구조
+    const name = array.method(callback)
+    함수와 비슷하다.
+    const name = function(~)
+
+    사용 예시
+    array.hof(callback 내용)
+        forEach : 배열의 요소마다 콜백함수를 실행시켜주는 녀석
+        배열에 객체도 넣을 수 있다.
+        find : callback 조건에 맞는 첫번째 아이템을 찾으면 반환해주는 녀석
+        findIndex: 제일 먼저 조건에 맞는 아이템의 인덱스를 반환
+        some : 배열의 아이템들이 부분적으로 조건(콜백함수)에 맞는지 확인
+        every : 배열의 아이템들이 전부 조건(콜백함수)에 맞는지 확인
+        ***filter*** : 조건에 맞는 모든 아이템을 새로운 배열로 !!! 매우중요
+        ***map*** : 배열의 아이템들을 각각 다른 아이템으로 매핑할 수 있는, 변환해서 새로운 배열 생성!
+        Flatmap: 중첩된 배열을 쫘악 펴서 새로운 배열로!
+        sort : 배열의 아이템들을 정렬
+                문자열 형태의 오름차순으로 요소를 정렬하고, 기존의 배열을 변경
+        reduce : 배열의 요소들을 접어서 접어서 값을 하나로!
+
+퀴즈
+    지금까지 고차함수를 적용하는 방법을 배웠다 : array.~(콜백)
+    function(array, otherparams...){
+        array.hof
+    }
+    구조를 이용해 문제해결하는방법을 익히자!
+
+이터레이터
+이터러블
+    이터러블이란
+        able : 형용사=> 규격, 인터페이스 나타냄
+        iterable : 순회 가능하다는말!
+        [Symbol.iterator](): IterableIterator<T>; : 이터러블을 나타내는 코드
+        심볼정의를 가진 객체나, 특정한 함수가 IterableIterator<T>를 리턴한다는것은
+        순회 가능한 객체다! 라는것을 의미한다
+        >> 빙글빙글도는 반복문, 연산자들을 사용할 수 있다.
+    
+    기본 메서드 : values, entries, keys, next, done을 사용가능
+        values : 말그대로 키밸류 값에서 밸류를 가져온다.
+        entries : 키 밸류 쌍을 가져온다.
+        keys : 키값을 리턴한다.
+        next : 다음 값을 가져오는듯 하네
+        done : 객체의 기본 이터레이터를 리턴하는 메소드
+                이터레이터의 끝값을 확인한다?
+    
+    이터레이터 객체만 for of를 사용가능하다.
+
+이터러블 퀴즈
+    // [Symbol.iterator](): IterableIterator<T>;
+    // 0부터 10이하까지 숫자의 2배를 순회하는 이터레이터(반복자) 만들기!
+    const multiple = {
+    [Symbol.iterator]: () => {
+        const max = 10;
+        let num = 0;
+        return {
+        next() {
+            return { value: num++ * 2, done: num > max };
+        },
+        };
+    },
+    };
+
+    console.clear();
+    for (const num of multiple) {
+    console.log(num);
+    }
+
+재사용성이 높은 함수로 변환
+    function makeIterable(initialValue, maxValue, callback) {
+    return {
+        [Symbol.iterator]: () => {
+        const max = maxValue;
+        let num = initialValue;
+        return {
+            next() {
+            return { value: callback(num++), done: num > max };
+            },
+        };
+        },
+    };
+    }
+
+    const multiple = makeIterable(0, 20, (num) => num * 2);
+    console.clear();
+    for (const num of multiple) {
+    console.log(num);
+    }
+
+    const single = makeIterable(0, 20, (num) => num);
+    for (const num of single) {
+    console.log(num);
+    }
+
+제네레이터
+    특징 
+        이터레이터를 손쉽게 만들수 있다. 클래스 - 객체 관계처럼
+        * : 제네레이터를 생성하는 표식
+    
+    예시
+        function* multipleGenerator() {
+        try {
+            for (let i = 0; i < 10; i++) {
+            console.log(i);
+            // yield : return과 비슷하지만 사용자가 원할때까지 결과물을 반환해줌.
+            yield i ** 2;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        }
+
+        제네레이터를 만든후 이터레이터를 사용하면 된다.
+        next와 done을 사용하면 첫 밸류값부터 하나씩 끄집어 낼 수 있다.
+
+        const multiple = multipleGenerator();
+        let next = multiple.next();
+        console.log(next.value, next.done);
+
+        외부에서 이터레이터제어가 가능하다.
+        이터레이터를 리턴하면 이터레이터가 끝난다.
+
+스프레드 연산자 (=전개구문)
+    스프레드란?
+    간단히 말해서 순회가능한 녀석들을 ...으로 간략표현하는 것.
+    모든 이터러블들은 스프레드 될 수 있다.
+    순회가 가능한 모든 것들은 촤르르르륵 펼쳐 질 수 있다.
+    순회가 가능한것? : 함수 배열 객체
+        func(...iterable)
+        [...iterable]
+        { ...obj }
+    변수로 지정한 녀석들을 한번에 묶어서 ...변수로 사용가능하다.
+
+    rest parameters와의 차이점
+        스프레드 연산자는 전달시에 배열을 줄여준다.
+        Rest param은 인자로 받아올 때 인자들을 줄여서 묶어준다.
+    객체에서의 사용예시
+        // Object
+        const ellie = { name: 'Ellie', age: 20, home: { address: 'home' } };
+        const updated = {
+        ...ellie,
+        job: 's/w engineer',
+        };
+        이런식으로 ellie를 건드리지 않으면서 job이라는 키를 넣는걸 볼 수 있다.
+
+구조분해할당
+    왜쓰나?
+    데이터 뭉치를 쉽게 만들수 있다 (=데이터를 편하게 나눌 수 있다.)
+
+    사용법
+    const fruits = ['🍏', '🥝', '🍓', '🍌'];
+    // 이렇게 코딩을하면 first = 사과, second = 키위, ...~ = 나머지
+    const [first, second, ...others] = fruits;
+
+    const point = [1, 2];
+    // 구조분해할당을 하면서 새로운 인자를 선언할 수도 있음
+    const [y, x, z = 0] = point;
+
+    // 함수도 리턴값을 구조분해할당가능!
+    function createEmoji() {
+    return ['apple', '🍎'];
+    }
+    const [title, emoji] = createEmoji();
+
+    // 배열을 먼저 선언하는걸로도 구조분해 할당이 된다.
+    // 키값을 바꾸고 싶다면 기존키값 : 바꿀키값을 넣으면 바뀐다.
+    const { name, age, job: occupation, pet = '강아지' } = ellie;
+
+퀴즈 2
+    const prop = {
+    name: 'Button',
+    styles: {
+        size: 20,
+        color: 'black',
+    },
+    };
+
+    // 이중객체를 구조분해 할당하는 방법
+    // 여기서 styles에는 접근할 수 없다.
+    function changeColor({ styles: { color } }) {
+    console.log(color);
+    }
+
+    changeColor(prop);
+
+    // MDN사이트에서 iterator 공부하기
+
+맵(map)
+배열의 특성
+    배열 : 인덱스를 기반으로 데이터를 저장한다.
+    >> 순서가 중요하다 : 중복가능
+    que를 구현할때 배열을 써야겠지?
+
+Set
+    데이터의 집합체. 순서, 중복 불가능
+    세트에는 객체도 들어갈 수 있고 여러종류의 데이터가 들어갈 수 있다.
+
+    선언
+    const set = new Set([1, 2, 3]);
+
+    내장 메서드
+    add : 요소 추가. 중복 불가능 이므로 이미 있는 요소는 안채워짐.
+    clear : 전부삭제
+    delete : 요소 삭제
+    forEach : set 요소마다 콜백함수를 실행. 이터러블이므로 for of도 가능
+    has : 특정 요소를 가지고있는지 확인해서 불리언 반환
+
+Map
+    키, 값으로 이루어진 오브젝트. 순서가 없다.
+    키는 유일한 값을 가져야 한다. 이것만 충족되면 밸류값은 중복을 허용
+    JS에서는 객체를 맵과 혼용할 수 있다. 거의 비슷하기때문이다.
+    
+    선언
+    const map = new Map([
+    ['key1', '🍎'],
+    ['key2', '🍌'],
+    ]);
+
+    내장 함수
+    clear
+    delete
+    forEach
+    get : Key에 해당하는 value를 불러온다. 없는 키라면 undefined를 가져오는듯
+    set : key value쌍 추가
+    has
+
+퀴즈
+    // 주어진 배열에서 중복을 제거 하라
+    const fruits = ['🍌', '🍎', '🍇', '🍌', '🍎', '🍑'];
+    //  ['🍌', '🍎', '🍇', '🍑']
+    function removeDuplication(array) {
+    return [...new Set(array)];
+    }
+    console.log(removeDuplication(fruits));
+
+    // 주어진 두 세트의 공통된 아이템만 담고 있는 세트 만들어라
+    const set1 = new Set([1, 2, 3, 4, 5]);
+    const set2 = new Set([1, 2, 3]);
+
+    function findIntersection(set1, set2) {
+    return new Set([...set1].filter((item) => set2.has(item)));
+    }
+    console.log(findIntersection(set1, set2));
+
+    // set을 배열로 만들어서 처리하는구나.
+    // +스프레드 연산자로 편하게 처리
+    // 고차함수 복습!
+
+심벌
+    왜쓰나?
+    유일한 키를 생성할 수 있음.
+    const map = new Map();        
+    // 같은 키 이름의 심벌을 만들어도 다른키로 인식된다.
+    const key1 = Symbol('key');
+    const key2 = Symbol('key');
+
+    만약 심볼로 동일한 이름의 하나의 키를 쓰고 싶다면
+    const k1 = Symbol.for('key');
+    const k2 = Symbol.for('key');
+    
+    // 심볼에 저장된 문자열의 정보를 불러올때
+    // 전역 레지스트리에 저장된 녀석들만 불러오기 가능
+    // 심벌은 맵에서 유용하게 사용할 수 있다.
+    console.log(Symbol.keyFor(k1));
+    console.log(Symbol.keyFor(key1));
+
+    // 오브젝트에서의 심벌 이용
+    // 이렇게 지정하면 진짜로 유일한 심벌을 만들 수 있음(접근할 수 없는).
+    const obj = { [k1]: 'Hello', [Symbol('key')]: 1 };
+    console.log(obj);
+    console.log(obj[k1]);
+    console.log(obj[Symbol('key')]);
