@@ -1,0 +1,245 @@
+프로토타입
+    property
+        오브젝트의 각각의 프로퍼티는 프로퍼티 디스크립터라고 하는 객체로 저장된다.
+        Object.getOwnPropertyDescriptors()로 접근 가능하다.
+
+        name, writable, enumerable, configurable 4개의 값을 가지고 있는 객체
+
+        name : {value: ~, writable : ~, enumerable : ~, configurable : ~}
+        writable : 값을 수정할 수 있는지.
+        enumerable : 이터러블한지
+        configurable : 속성들을 수정할 수 있는지
+        각종 프로퍼티를 받아온다.
+
+        defineProperty메서드 : 프로퍼티 변경 가능
+        Object.defineProperty(dog, 'name', {
+            value: '멍멍',
+            writable: false,
+            enumerable: false,
+            configurable: false,
+        });
+
+    freeze
+        freeze란 ?
+            객체의 불변성을 추구할 때 사용하는 녀석
+            object.freeze : 동결! 추가, 삭제, 쓰기, 속성 재정의 불가
+            단 얕은 꽁꽁얼림(하위객체를 수정할 순 있다.)
+
+        seal
+            Object.seal 
+            밀봉! 값의 수정 ✅, 추가 ❌, 삭제 ❌, 속성 재정의 ❌
+
+        preventExtensions : 추가 x
+            Object.preventExtensions
+
+    prototype
+        prototype?
+            겹치는 함수나 객체를 만들기 위해 사용했던 고전 JS 객체
+            지금은 클래스가 대세이다.
+            비슷한것 : 생성자 함수, 클래스
+                생성자 함수 : 함수를 정의하고 함수 내부에 this.~를 이용해 틀을 만든다. 그후 new를 이용해 객체 생성
+                클래스 : class {} 로 틀을 만들고 생성자는 constructor안에 내용을 넣으면 된다.
+                        마찬가지로 new를 이용해 인스턴스 생성
+
+        구조
+            function Dog(name, emoji) {
+                this.name = name;
+                this.emoji = emoji;
+            
+            인스턴스 레벨의 함수 : 생성자로 만드는 인스턴스마다
+            다 이함수를 가지고 있다. : 메모리 낭비
+            this.printName = () => {
+            console.log(`${this.name} ${this.emoji}`);
+            }; 
+
+            }
+
+            보면 프로토타입의 경우 함수선언시 생성자함수 바깥에 따로 정의해주는 것을 볼 수 있다.
+            프로토타입 레벨의 함수 : 확인해보면 dog1과 2에 함수가 빠져있는 것을 볼 수 있다.
+            Dog.prototype.printName = function () {
+            console.log(`${this.name} ${this.emoji}`);
+            };
+
+    오버라이딩
+        인스턴스 레벨에서(자식) 동일한 이름으로 함수를 재정의 하면 (오버라이딩 하면)
+        프로토타입 레벨의(부모) 함수의 프로퍼티는 가려진다 (섀도잉 됨)
+        자식 레벨에서함수를 재정의 : 자식 레벨 사용, 재정의 x : 부모 레벨 사용
+
+    상속
+        객체지향 프로그래밍 장점 : 상속을 통한 코드 재사용성 up
+        JS :프로토타입을 베이스로 한 객체지향 프로그래밍
+        모든 프로토타입은 최상위에 Object 프로토타입을 상속하고 있다.
+
+    구조
+        Dog.prototype = Object.create(Animal.prototype)
+        Dog 프로토타입이 Animal프로토타입을 상속받는다.
+        개발자 도구에 들어가서 프로토타입 인스턴스를 콘솔에 치면
+        상속도를 확인할 수 있다.
+        생성자함수를 쓰려면 부모의 생성자에 프로퍼티를 전달해야 한다.
+            class에서는 super(~, ~, ...)을 쓰고
+            프로토 타입에서는
+            protoname.call(this,~,~,...)을 쓰면 된다.
+        dog1 instanceof Dog : 함수 / 객체의 하위 인스턴스를 불리언으로 반환한다.
+
+    Mixin
+        객체는 단 하나의 프로토타입을 가리킬 수 있다. 여러개를 가리키고 싶다면?
+        Mixin!
+
+    assign메서드
+        Object.assign(~, ~, ~); : 모든 ~을 가리킬 수 있다.
+
+    퀴즈
+        클래스의 구조를 잘 이해하자!
+        class name{
+            constructor(a1, a2){
+                this.a1 = a1
+                this.a2 = a2
+            }
+            funcname() {
+                ~~
+            }
+        }
+
+        상속받은 클래스
+        생성자는 추가할 프로퍼티가 있을때만 따로 기입한다. 
+        class name1 extends name{
+            constructor(a1, a2, a3){
+                super(a1,a2)
+                this.a3 = a3
+            }
+            funcname() {
+                ~~
+            }
+        }
+
+클로저
+    클로저
+        클로저?
+            함수 + 그 외부를 둘러싸고 있는 렉시컬 환경
+            즉 내부함수에서 외부함수에 접근할 수 있는 권한을 주는 것을 말한다.
+            더 간단히 말하면 내부에서 외부자료에 접근하는것.
+            엄밀히 말하면 중첩된 함수에서 내부환경에서 외부환경에 접근하는 느낌
+            폐쇄되어있는 구조여야 하는듯
+
+        inner - outer 실행 예제
+            function outer() {
+            const x = 0;
+            function inner() {
+                console.log(`inside inner: ${x}`);
+            }
+            inner();
+            }
+            const func1 = outer();
+            func1();
+
+        실행 컨텍스트 스택 진행 메커니즘
+            outer 함수 호출 >>
+            1. 전역 스코프 렉시컬 환경
+            2. outer 스코프 렉시컬 환경(outer 함수 호출시)
+                외부 렉시컬 환경 참조 >> 전역렉시컬 환경 가리킴
+                x = 0 쌓임
+            3. inner 스코프 렉시컬 환경 쌓임
+                외부 렉시컬 환경 참조 >> outer 렉시컬 환경 참조
+            4. inner 함수 끝나면 inner 스코프 삭제
+            5. outer 함수 끝나면 outer 스코프 삭제
+            6. 어플리케이션 종료되면 전역 스코프 삭제        
+
+    why?
+        내부 정보를 은닉하고, 공개 함수(public, 외부)를 통한 데이터 조작을 막는다.
+        캡슐화와 정보 은닉
+        클래스(private) 필드 또는 메소드를 사용하는 효과와 동일
+        근데 이제 잘안씀. 클래스 필드씀
+
+    var
+        그냥쓰지마셈
+        쓰지말라면 쓰지마셈
+        함수 스코프만 지원하므로 블록스코프와 만나면 싸발적으로 망할가능성 있음
+
+this
+    this
+        JS에서의 this : 런타임 상황에 따라 달라진다.
+        this binding : this.name = name ~이렇게 묶여있는것을 말함.
+
+    런타임 환경에서 this
+        느슨한 환경
+        브라우저 : window
+        노드 : 모듈
+
+        함수 내부에서의 this
+        함수를 둘러싼 바로 위 렉시컬 환경을 가리킴.
+        일반함수의 this : global
+
+        생성자 함수 또는 클래스에서의 this : 앞으로 생성될 인스턴스 자체를 가리킨다.
+
+binding
+    정적으로 인스턴스가 만들어지는 시점에 this가 결정됨!
+    하지만, 자바스크립트에서는 누가 호출하냐에 따라서 this가 달라짐!
+    즉, this는 호출하는 사람(caller)에 의해 동적으로 결정됨!
+
+예제
+    대충 dog와 cat의 객체가 있다고 가정하면
+    dog.printName = cat.printName;
+    dog.printName();
+    cat.printName();
+    이런 상황이라 가정
+    도그 객체에서 캣 객체의 함수를 카피해오면
+    도그 객체의 이름을 유지한 채로 캣의 함수를 쓴다.
+    caller : dog, func : cat
+    다른 언어에서는 caller와 상관없이 캣 객체를 그대로 썼을것이다
+
+    이러한 특성이 나중에 문제를 발생시킨다.
+        this가 바인딩이 풀려버리면 undefined를 반환할수도 있기 때문!
+        언제 풀리는지는 공부하기
+
+binding-solve
+    this binding이 풀리는 것을 막는 방법
+    1. arrow function사용
+        예시
+        this.printName = () => {
+            console.log(`고양이의 이름을 출력한다옹: ${this.name}`);
+        };
+    
+    2. bind 함수를 이용해서 수동 바인딩
+        this.printName = this.printName.bind(this);
+        제 이함수는 콜러가 누구던지 영원히 고양이와 바인딩 됨.
+
+arrow
+    JS의 함수는 만능 슈퍼맨
+    함수처럼 사용, 생성자 함수로 사용( 클래스 )
+    하지만 불필요한 프로토타입(무거운데이터)을 담고 있다.
+
+    메서드와 화살표 함수는 생성자 함수로 사용할 수 없다.
+
+    화살표 함수의 특징
+    1. 문법이 깔끔함
+    2. 생성자 함수로 사용이 불가능 (무거운 프로토타입을 만들지 ❌)
+    3. 함수 자체 arguments 객체 없음. 상위 렉시컬을 참조함.
+    4. this에 대한 바인딩이 정적으로 결정됨
+       - 함수에서 제일 근접한 상위 스코프의 this에 정적으로 바인딩됨
+
+babel
+    바벨, 타입스크립트 : 자동으로 최신문법을 다운그레이드할 수있다.
+    리액트에서는 바벨의 기능이 자동으로 탑재
+    만약 바닐라 JS를 쓸것이라면 바벨 사이트 들어가서 변환할 수 있다.
+    근데 우리의 주 타겟층이 지원하는 JS 버젼을 확인하고 적정선을 맞추는 게 좋다.
+
+summary
+    앞으로 브라우저 공부할것
+
+    변수 이름짓기
+        저장된 값을 잘 나타낼 수 있은 의미있는 이름.
+        구체적일 수록 좋다.
+        이 변수에는 어떤 값이 들어가는가? 고려해보기
+        코드가 실행되면 어떤 값이 생성되는가?
+
+    함수
+        작은 단위의 일들을 묶어야 겠군
+        수행하는 일을 잘 나타낼수 있는 이름짓기(매개변수도)
+
+    객체
+        서로 연관있는 속성(데이터 프로퍼티)과 행동(메소드)를 묶기 위해 사용
+
+    스코프
+        이름 충돌 방지, 메모리 절약
+        블럭안의 변수는 블럭안에서만 유효
+        변수는 최대한 필요한 곳에서 정의해야겠군!(메모리 절약 - gc)
