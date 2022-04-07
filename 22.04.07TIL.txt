@@ -1,0 +1,206 @@
+- Plan & Design
+    - 내 포트폴리오
+        - 싱글 페이지로
+        - 클릭을 작게 할 수 있게 구현
+        - 면접관의 입장에서 최대한 간결한게 좋다!
+        - 깔끔하지만 나의 개성을 살려서!
+        - 전문가, 전문 지식, 개발 관련
+        - 개발에 대한 나의 열정
+        - 내가 가지고 있는 기술, 언어, 툴
+        - 나의 기술 스택
+        - 프로젝트들 (카테고리, 우선순위)
+        - 추천사(매니저나 윗분들한테 받을 것.)
+        - 연락처
+        - 링크 : 링크드인, 깃허브
+        
+    - 컨텐츠
+        
+        소개
+        
+        - 경력
+            - 회사, 기간
+            - 학교, 학원
+        - 열정
+        
+        주요 스택
+        
+        - 프론트엔드
+            - Web Basic : HTML, CSS, JavaScript
+            - React
+            - Vue
+        - 백엔드
+        - 모바일
+            - 세부적으로!
+        
+        프로젝트들
+        
+        - 프로젝트
+            - 뭔지? 주요 기능?
+            - 깃허브 (readme 파일 ← 주요기능 스크린샷 넣기)
+            - 어떤 기술이 쓰여졌는지 정리
+            - 내가 이런부분이 부족하구나 정리
+        
+        기술
+        - 언어
+            - C(~점)
+            - JS(~점)
+        - 툴
+        - 기타 : 수학, 물리 등등...
+        
+        추천서
+        
+        - ~ 과장님, 책임님에게 받아야지 미리 생각!
+        - 링크드인에 추천서 남겨놓으면 계속 남아있으므로 받아놓기
+        - 추천서 1
+            - 강점, 스킬을 칭찬
+            - 누가(링크드인, 깃허브)
+        - 추천서 2
+        
+        연락처
+        
+        - 이메일
+        - 깃허브
+        - 링크드인
+    - 디자인 와이어프레임
+        - 디자인을 구체적으로 정하는것. 색깔과 아이콘은 정할 필요가 없음
+        - 배치는 어떻게 할 것인지, 전반적인 userflow는 어떻게 가져가야 되는지, 핵심적인 기능들은 어떤 것이 있는지
+    - 아이콘 생성
+        - Font Awesome : 평범, 나만의 독특한 로고 이용 ㅂㄱㄴ
+            - 파일 다운로드(svg) 받고 열어보면 <path fill = ~> 부분을 확인
+            - ~부분을 color picker를 이용해 바꾸면 원하는 색깔 입히기 가능
+            - svg to png로 파일 변경해주면 우리가 원하는 녀석을 쓸 수 있다.
+        - canva.com
+            - 커스터마이징해서 아이콘을 만들 수 있음.
+            - 블랭크로 들어가서 마음에 드는 아이콘 배치도 가능.
+            - 아이콘 파트별로 색상 변경 가능
+            - 무료다운로드하면 배경이 하얀색으로 변경
+                - 구글링해서 하얀배경 없애는 방법 찾기
+            - 윈도우에서는 크롭기능 알아서 찾아보기
+    - 배경 만들기
+        - gradient를 불러와서 element - shape
+        - 기본색상을 정하고 좀더 연하게 사각형을 오버래핑해서 비슷하게 구현을 한다.
+        - 글자 색상을 고려해서 배경색을 조절해주어야 한다.
+        - 다 마음에 안들면 주어진 템플릿 이용해봐도 된다.
+        
+- Git & Github
+    - 깃 : 버전관리 시스템
+        - 로컬저장소에 버전관리를 하는것.
+        - 깃 파일에 모든 버전 내용이 있기 때문에 pc가 문제가 생기면 다 날라감
+        - 그래서 깃헙을 쓰는것.
+    - Branch
+        - 커밋을 계속 해나가다보면 생기는 라인 : branch
+            
+            ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fb924e94-0882-4026-b3a5-a07572fd7146/Untitled.png)
+            
+        - 가장 기본 줄기 : master branch
+        - 만약 핑크버전과 다크버전의 웹사이트를 만들고 싶다?
+            - 다른 브랜치로 분기해서 관리!
+    - 오류
+        - The current branch main has no upstream branch
+            - 원격저장소이름을 정확히 명시한 후 push or pull 해준다.
+            - git push origin(원격저장소 이름) main(브랜치 이름)
+                - 브랜치이름은 main or master
+            - 원격저장소 이름은
+                - git remote -v로 찾을 수 있음.
+        - failed to push some refs to ‘https://github~’
+            - 깃헙에서 [readme.md](http://readme.md) 파일을 생성 후 local에서 pull을 안한 상태로 작업을 진행했기 때문에 발생
+            - remot버전과 로컬의 버전이 달라서 충돌
+            - 해결방법
+                - git push -u origin +master
+                    - 강제적으로 push → 강제로 push 진행한 repository의 모든 작업이 다 날아가고 해당파일만 남을 수 있음에 주의
+                - git pull origin master
+                    - 원격저장소의 데이터를 pull하여 commit 시점을 맞춤
+                - git push -f origin master
+                    - commit 이력을 강제로 덮어 씌운다.
+                    - 작업한 내용이 많다면 -f옵션으로 푸쉬하는 것이 좋겠지만 작업 내용이 많지 않다면 pull해서 push!
+                    repository모든 작업이 다 날아가고 해당 파일만 남음
+        - refusing to merge unrelated histories
+            - **--allow-unrelated-histories를 push나 pull 뒤에 붙여서 진행한다.**
+    - 깃의 옵션
+        - -f?
+        - -u?
+
+- Head
+    - Metadata
+        - 우리의 html파일을 설명해줄 내용 넣기.
+    - Font Awesome
+        - 회원가입하고 스크립트 태그 복붙하기
+    - Google Fonts
+        - 여기서 우리가 원하는 폰트를 받아올 수 있다.
+    - Favicon & first commit
+        - title : 탭에 나오는 웹사이트 이름
+        - favicon : title 옆에 나오는 작은 아이콘
+        - 북마크를 하면 자동으로 title 이름이 나오는 것을 볼 수 있다.
+        - html안의 JS태그는 무죄껀 안에 defer를 넣어줄것!!!!!!! 매우중요
+     
+- 보너스 챕터
+    - CSS variable의 모든 것
+        - hardcode : 반복되는것도 직접 전부 타이핑하는 코드( 비추천 )
+        - 반복되면 변수로 담아서 쓰는게 훨씬 낫다!
+            - 커스텀 프로퍼티를 쓰면 편하다!
+            - 선언할때는 불편하겠지만 나중에 고칠때 한번에 내용들을 편하게 고칠 수 있다.
+        - 커스텀 프로퍼티
+            - 변수로 담는 방법 : —var name
+            - CSS에서는 camelCase 보다는 camel-case로 쓴다.(가독성)
+            - 커스텀 프로퍼티를 선언한 자식 요소들은 전부 커스텀 프로퍼티를 사용할 수 있다.
+                - 따라서 최상위 노드인 root에서 정의를 한다.
+                    
+                    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/66927195-7b4e-4e80-8750-9d74121b8064/Untitled.png)
+                    
+            - calc 함수
+                - 커스텀 프로퍼티의 값을 조작(실수배, 사칙연산 등등)할때 이용
+                - calc(var(~) * 2)
+        - media query
+            - 구조
+                
+                ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9fd50a30-7135-4402-b863-b925354813fd/Untitled.png)
+                
+            - and 뒤 ()에 화면 크기에 대한 조건이 들어가고 {}안에 적용할 css 프로퍼티들이 들어간다.
+    - HTML 유용한 Data
+        - data attributes
+            - html 태그 자체에서 제공하는 속성들 뿐만 아니라 우리가 원하는 데이터를 DOM요소, HTML요소에 추가할 수 있는 기능
+            - attribute : html 태그 안의 id =~ 이러한 속성들을 지칭
+            - 임의로 태그를 만들 땐 data를 앞에 붙인뒤 -~로 원하는 내용을 붙인다.
+                - data-display-name = ~
+            - attribute를 다루는 emmet 사용법 : 태그[attri내용]
+                - 띄어쓰기 안해야됨!
+            - 선택자 앞에 태그를 붙여서 세부적으로 구분 할 수 있다.
+                
+                ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/38a8b4b6-86f8-4436-a94c-f0dc879b0c7f/Untitled.png)
+                
+                - [] 안의 내용을 만족하면서 div인 선택자에 적용하라!
+            - queryselector
+                - JS에서의 선택자
+                - 변수에 선택자를 받아와서 활용할 수 있다!
+                - 변수.dataset을 콘솔에 출력해보면 DOMStringMap에 우리가 지정한 attribute가 나오는 것을 볼 수 있다.
+                    - data만 뚝 떼서 나오는 것을 볼 수 있다.
+                    - dataset.attribute(camelCase)로 우리가 원하는 html요소에 접근할 수 있다.
+                    - 하지만 개발자 도구(DOM요소)에 들어가면 적나라하게 우리 html요소가 나오기 때문에 js로 적절한 처리를 해주어야 한다.
+- Html : Markup
+    - What is BEM
+        - 이름을 잘 작성하는 방법
+        - Block Element Modifier
+        - 개략도
+            
+            ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/517d3f65-1290-4c84-a443-0cf2477fa626/Untitled.png)
+            
+            - 이러한 카드를 만든다고 하면
+                - 카드 : block
+                - image, title, button : element
+                    - 더 이상 분리될 수 없는 엘리멘트임
+        - 구조
+            - block__element—modifier
+            - 근데 만약 element가 다른 컴포넌트에도 쓰인다면?
+                - element보다 block으로 따로 쓰는게 낫다.
+            - 만약 똑같은 elements가 반복된다면?
+            - Modifier는 어떤 녀석들을 부르는 것일까
+                
+                ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/538585c1-5bfe-4b86-9f4d-28a6e700f75d/Untitled.png)
+                
+                - cards라는 컨테이너에 묶여있다고 가정하자.
+                - 그러면 모든 card를 element로 쓸것인가?
+                - 그러지 말고 card를 block으로 쓰고 cards라는 컨테이너에도 쓰는 방향으로 가자
+    - Sectioning
+        - 완성본을 먼저 본후 박스로 대충 나누어 보자!
+        - 전부 나누어 본후 markup(어디에 뭐넣을 건지) 대충 구상해보기!
+    

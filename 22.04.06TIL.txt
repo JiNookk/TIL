@@ -1,0 +1,177 @@
+- 펜툴 활용법과 주석 색깔 바꾸는 법
+    - 원노트로 대체 가능
+        - 섹션을 나눈 후
+
+- Html 1편
+    - 웹사이트의 구조를 파악할 수 있는 통찰력을 기르게 된다.
+    - 웹사이트의 기본 구조 골격
+    - 태그안에 또 다른 태그를 넣을 수 있다.
+    - 마크업 언어 : 태그를 이용해 구조적으로 작성된 언어
+    - 태그별로 브라우저가 지원하는지 확인할 수 있다.
+    - 웹페이지를 나누는 시각
+        - 웹페이지에 나와있는 모든 내용들이 body 태그에서 우리가 정의한 내용이 들어간다.
+        - 배너 - 헤더  - 사이드 박스 + 메인박스 순으로 대략 구성되어있다.
+        - 헤더 안에도 search bar, navigation(메일, 카페, 블로그, 지식 in 등등. ...)이 있다.
+        - 모든 박스 안에는 작은 세부박스들로 구성되어있다.
+        - 무죄~껀 최대한 작은 단위로 쪼개어서 작은 기능부터 구현하라.
+    
+- Html 2편
+    - 태그 섹션 나누기 : header - nav - aside - main - footer
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d5e3ae82-18bc-408c-8ef9-cd7af91cca78/Untitled.png)
+        
+    - 엘레멘트 (= 노드)
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/586d597b-516a-4aa9-a30c-de85868688ff/Untitled.png)
+        
+    - 어트리뷰트 : 태그 안에 들어가는 속성
+    - 인라인 레벨 : 줄바꿈이 일어나지 않는 태그
+    - list 태그
+        - ol : ordered
+        - ul : unordered
+        - type을 어떻게 주느냐에 따라 결과물이 다르게 나오는 것을 볼 수 있다.
+    - input : 입력값을 줄 수 있는 태그
+        - type을 어떤 것을 주느냐에 따라 다양한 모양의 입력값을 줄 수 있다.
+- CSS 1편
+    - cascade style sheet : 정의된 세부 사항을 쓰고 정의된 것이 없다면 그다음 정의된 것으로 넘어간다는 의미
+    - important 왠만하면 쓰지 않기
+    - label을 잘 만들면 css 적용하기 쉽다.
+    - 선택자
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2f11e83e-09ed-4876-8059-4540b3c64db8/Untitled.png)
+        
+        - 선택자를 주어 구체적인 아이템에 속성을 줄 수 있다.
+        - 구조
+            - selector {
+            property : value;
+            }
+            - selector 위치에 위 그림 선택자들을 넣으면 된다.
+- CSS 2편
+    - block level, in line level
+        - div : block level
+        - span : inline level
+    - position, display
+        - display
+            - block
+                - 인라인 레벨 요소들을 블럭 레벨 요소로 바꾸어 준다.
+            - inline
+                - 블럭 레벨 요소들을 인라인레벨 요소로 바꾸어 준다.
+            - inline - block
+                - block 단위로 inline 배치하는 녀석
+            - flex
+                - flexbox 사용
+        - position
+            - static
+                - html의 정해진 순서대로 브라우저에 나타나는것.
+            - relative
+                - 기존 위치에서 상대적 위치로 바꿔주는 것
+            - absolute
+                - 아이템이 담겨있는 상자에서의 절대위치
+            - fixed
+                - 가장 상위 요소기준의 절대위치
+            - sticky
+                - 원래 있어야 하는 자리에 있으면서 스크롤링시 따라오는 녀석
+- CSS 3편
+    - flexbox
+        - 박스 아이템을 행 또는 열로 정렬시킬수 있는 기능
+        - float
+            - 이미지와 텍스트를 어떻게 배치할건지 정의
+            - flexbox가 생기면서 본래의 기능을 한다.
+        - 축
+            - 중심축과 반대축이 존재
+            - 중심축을 지정하면 반대편 축이 반대축이 된다.
+                - 수직축 : 중심축 >> 수평축 : 반대축
+        - vh vs %
+            - vh : 이건 왜 안설명하누
+            - % : 부모 박스의 몇퍼센트인지를 표시
+                - 우리가 만든 박스의 상위태그에 100%를 지정해도 변화가 없는이유 ?
+                    - 그보다 더 상위태그의 사이즈가 100%가 아니기 때문.
+        - 기능
+            - item관련
+                - order
+                - flex-grow
+                - flex-shrink
+                - flex
+                - align-self
+        - 적용
+            - display : flex
+            - flex-direction : 요소의 순서 (방향)까지 변경
+                - row : 기본축을 수평축으로
+                - row-reverse : 기본축을 수평축으로 하되 반대방향부터 시작
+                - column : 기본축을 수직축으로
+                - column-reverse : 기본축을 수직축으로 하되 반대방향부터 시작
+            - flex-wrap : 다음줄로 넘어 갈것인지 말것인지
+                - nowrap
+                    - 아이템이 꽉차도 비율이 줄면서 다음줄로 안넘어감
+                - wrap
+                    - 아이템이 꽉차면 다음줄로 넘어감. 비율은 그대로
+                - wrap - reverse
+                    - 반대 방향으로 wrap
+            - justify - content : 중심축에서 아이템을 어떻게 배치할 것인지 나타낸다.
+                - flex - start
+                    - 수평 중심축일 경우 : 왼 → 오
+                    - 수직 중심축일 경우 : 위 → 아래
+                - flex - end
+                    - start와 반대. 하지만 요소의 순서는 바뀌지 않고 배치만 끝으로 진행된다.
+                - space - around
+                    - 갈수록 간격이 큰 박스 정렬방법
+                - space - evenly
+                    - 간격이 일정한 박스 정렬방법
+                - space - between
+                    - 양 옆끝만 화면에 붙이고 나머지는 간격이 일정하게
+            - align - items : 반대축에서 아이템을 어떻게 배치할 지
+                - center
+                - baseline
+                    - 박스 안에 담겨있는 컨텐츠들의 높이를 딱 맞춰주는 방법
+            - align - content : 반대축에서 컨텐츠간의 간격을 조정하는 녀석
+                - space-between
+                - center
+            - flex-grow : 컨테이너를 채우려고 아이템을 늘리면 쭉 늘어난다.
+                - 얘네는 아이템에 직접 flex-grow : 가중치를 지정해주어야 한다.
+            - flex-shrink : 컨테이너가 줄어들 때 가중치를 주는 녀석
+            - flex-basis : 퍼센트를 지정해서 이것에 맞추어 줄어들었다 늘었다함.
+            - align-self : 아이템 별로 따로따로 위치를 지정할 수 있음
+        - 최종 정리
+            - 플렉스박스는 컨테이너(아이템을 담은 박스)와 아이템 각각을 꾸며줄 수 있는 속성이 있다.
+            - 플렉스 박스는 중심축과 반대축이 있고 설정에 따라 바뀔 수 있다.
+- 반응형 웹
+    - 태블릿, 폰에 맞추어 화면을 적응시켜야 한다.
+    - flex grid, flex box, %, vw, vh를 이용해서 구현을 한다.
+    - 하지만 어느 수준이하로 화면이 작아지면 구성이 변경되는건 어떻게 할까?
+        - css의 mediaquery를 이용
+        - 미디어쿼리 공부!!!
+- VScode 설치 + extension 설치
+    - VScode는 아톰이나 서브라임 텍스트같은 text editor지만 extension을 설치하면 강력한 IDE 뺨칠 수 있다.
+- Emmet
+    - 사용법
+        - ! + tab : html 양식 자동생성
+        - tag.class + tab ( 태그 생략가능 )
+        - tag#id + tab
+        - () 괄호로 묶어서 사용할 수 있다.
+        - 형제 노드, 부모노드
+            - > : 부모 - 자식관계 노드
+            - + : 형제노드
+            - ^ : 부모노드에 형제노드 추가
+            - 예시
+                - div > ul > li : 서로 상하위 노드인 코드가 완성
+        - 텍스트 넣기
+            - 태그{텍스트} + tab
+        - 숫자넣기
+            - $를 넣은곳에 숫자가 들어감 마지막에 * n을 곱해서 몇까지 올라가는지 지정
+        - 더미용 텍스트
+            - : lorem(n) + tab
+                - n : 생략가능, 몇덩이 단어 가져올건지 결정
+- JS의 역사
+    - 넷스케이프 사장이 만든 언어임. 동적인 기능을 구현하기 위해 만든 언어.
+    - 자바의 명성에 편승하려고 livescript에 자바를 합쳐서 자바스크립트를 만듬.
+    - 마이크로소프트에서 자바스크립트를 베껴서 jscript를 만듬.
+    - 넷스케이프가 화나서 ecmascript에 표준을 js로 만들자고 제안.
+    - 마소가 횡포를 부림.
+    - 거대 회사들이 다 다른 브라우저를 만들면서 개발자들이 갈림
+    - 그러면서 jquery등등 api를 끌어다가 어떤 브라우저에서도 동작하는 api를 만듬.
+    - 크롬의 등장으로 대 브라우저 시대 폐막
+    - ecmascript로 다들 내용을 통합하기로 합의
+    - 이제 그래서 jquery가 필요없다.
+    - 이제는 SPA가 핫하다.
+    - 하나의 페이지에서 많은 것을 할 수 있는 기능
+- 콘솔에 출력 + script async
