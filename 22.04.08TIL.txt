@@ -1,0 +1,79 @@
+포트폴리오 웹사이트 코딩
+html골격
+    메인 제목, 소제목, 글자 설명, 컨테이너, 블럭단위 요소로 미리 나누어 보자.
+    section : 구역을 나눌때
+    nav : 세부 메뉴로 들어갈 때
+    H1 : 메인제목
+    h2 : 소제목
+    p : 그냥 문단
+    div : 컨테이너, 블럭요소, 반복단위 등등
+        공통된 블럭요소를 잘 캐치해서 컨테이너안에 잘 담을 것.
+    ul, ol : 나열이 필요할 때 
+    a : 하이퍼링크
+    img : 이미지 태그
+        src : 상대경로
+        alt : 설명
+    br : 줄바꿈
+    span : 인라인 태그 : 자동으로 줄바꿈이 일어나지 않는다.
+        만약 한줄의 양끝에 특정 내용이 있다면 span 태그를 이용해서 코딩을 진행해야함.
+
+    클래스이름을 찰떡같이 지을것.
+        BEM을 잘 활용해서 지어야 한다.
+
+    이미지 크기 조정 : image size, png compression으로 일괄적인 크기를 맞출 수 있다.
+    
+css 특강
+    flexbox 없이 정렬하기
+        기능
+            margin : auto 
+            >> 어떠한 요소이던지 부모에 대해 수평 중심을 맞춰준다.
+            text-align : center
+            >> 블럭 요소만 빼고 어떤요소든지 중심으로 수평정렬한다.
+            transform : ~
+                translate(~%, ~%)
+                >> 요소자체 크기를 백분율로 나눠 미세조정을 가능하게 한다.
+                    %말고 픽셀단위로도 이동 ㄱㄴ
+                translateX : x방향으로 ~이동 (y,z도 똑같다!)
+                scale : 실수배
+                rotate : 회전
+                한번에 다 때려박으면 여러개 동시에 쓸 수 있다.
+            line-height
+            >> Determines the block-progression dimension of the text content area of an inline box.
+        
+
+    배경 설정
+        background-image : url('~') : 배경 이미지 설정
+            이미지가 끝날경우 다시 반복되는 이미지가 출력된다.
+        background-repeat: no-repeat;
+            이미지의 반복을 막는 코드
+        background-position: center;
+            브라우저의 중심을 항상 이미지 중심에 맞춰준다
+        background-size: cover;
+            남은 공간을 계산해서 알아서 이미지 비율을 계산해줌
+        
+        >>background: center/cover no-repeat
+          url('~')로 축약이 가능하다!!
+
+    박스 사이징
+        보통 css에서 벌어지는 문제는 전부 박스 사이즈 잘못 정해서 발생
+        padding : 컨텐츠 외 추가의 두께
+        border : 패딩바깥에 추가로 붙는 두께
+        box-sizing : padding, border이 확장하는 방향을 결정한다.
+            content-box : 바깥으로 확장
+            border - box : 안으로 확장
+
+    위치 선정
+        static   : 위치 기본값, top, left ...에 어떤값을 줘도 변하지 않는다.
+        relative : 원래 기본값(static)을 기준으로 top left 준만큼 이동
+        absolute : 기본값이 static이 아닌 가장 가까운 부모를 기준으로 상하좌우 이동.
+                    원래 자리에서 이탈하므로 기존아이템의 재배치 발생
+        sticky   : 박스안에서 화면이 어디로 이동하든 그위치를 고수하는 위치배치
+        fixed    : 박스와 관계없이 브라우저가 가지는 viewport안에서 위치변화
+
+        sticky ,static, relative : 들어있는 박스안에서 변경이 일어나게 된다.
+
+    다음에 transition하기!
+
+이력서
+    about me : 내 자신있는 기술, 언어들 나열
+    프론트엔드 : 3대장 + react + vue + TS
