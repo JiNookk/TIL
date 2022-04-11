@@ -1,0 +1,109 @@
+CSS 작업
+    글로벌
+        css에서 커스텀 프로퍼티를 미리 적어놓는 부분
+        :root {
+            필요한 내용~
+        }
+    
+    태그들 전처리(Universal tags)
+        *, body, a, ul 태그들을 미리 손질해서 특수효과, margin, cursor, padding을 지정한다.
+    
+    Typography
+        태그안에 들어갈 폰트, 색깔, 마진을 미리 지정하는 작업
+        h1, h2, p ... 다양한 태그의 프로퍼티를 지정해놓으면 좋다.
+
+    다양한 프로퍼티들
+        cursor
+            default : 기본 마우스 커서모양
+            pointer : 손모양 (호버상황일때)
+
+        background
+            배경에 들어갈 이미지와 반응형, 반복여부, 위치를 지정한다.
+            background: url('이미지 상대위치') 위치 반복여부
+
+        margin
+            주어진 방향으로 간격을 생성한다.
+            종류  : top, left, right, bottom, auto
+                auto : 자동으로 모든방향?(좌우만인가?)에 동일한 마진을 형성한다.
+                나머지 : 해당 방향으로 마진 설정
+
+        max-width
+            화면을 늘릴때 최대치를 설정할 수 있는 코드
+            화면따라서 늘어나야 되는것과 최대치를 설정하는게 혼재할 때는?
+                따로 클래스를 내부에 만들어 둘다 적용시킨다.
+                ex)
+                    div class = section ~
+                        div class = section__container ~
+                        /div
+                    /div
+
+
+        display
+            flex
+
+        
+        flexbox
+            기본축을 자유자재로 지정해서 배치를 도와주는 고마운 녀석
+            flex-direction : row || column 을 이용해 기본축 설정 가능
+            flex-basis 프로퍼티를 통해 %단위로 아이템의 위치를 배치할 수 잇다.
+            flex-wrap 화면에 꽉차면 아래로 내려갈 수 있게 해주는 작업
+
+        justify-content
+            기본축의 아이템을 어떻게 정렬할지 결정
+
+        align-item
+            반대축의 아이템을 어떻게 정렬할 지 결정
+
+    테크닉
+        height와 line-height를 똑같이 주면 요소가 중간에 오게 된다
+        만들면서 확인하기 어려운 요소는 색을 지정해서 영역확인하면 좋다!
+        
+        개발자 도구를 이용해서 마우스를 대보면 margin이 분홍색으로 표시된다.
+            치우쳐저 있다면 margin auto쓸것
+        개발자 도구를 들어가 보면 사이즈가 작아서 옆으로 안퍼지는지 
+        마진때문에 옆으로 안퍼지는지 확인할 수 있다. 마진 : 분홍, 사이즈 : 파랑
+
+
+        마우스를 가져다 댈때 동작을 원한다면 : hover
+        major icon이 아닌 i개체(아이콘)에 올라갔을 때 반응을 원하면 i도 추가
+            이렇게하면 안의 회전, 확대도 아이콘에서만 발생
+
+        .major__icon:hover i {
+        color: var(--color-pink);
+
+            가져다 댈때 회전과 확대가 발생
+
+        transform: rotate(-30deg) scale(1.2);
+        }
+
+        추가로 transition 설정을 통해 애니메이션을 줄수 있다.
+        .major__icon i {
+        transition: all var(--animation-duration) ease;
+        }
+
+        div태그 기본값 : 수직
+        flex 기본값 : 수평
+            이 두개를 잘 비벼서 우리가 원하는 배치를 얻어낸다.
+
+        CSS프로퍼티에서는 절대 ,를 사용하지 않는다!
+
+        박스 내부 개체들의 간격을 띄울때 : padding
+        박스의 간격을 띄울 때 : margin
+
+        카테고리 버튼이 액티브인 상태의 카테고리 카운트와
+        카테고리 버튼에 마우스가 올라왔을때 안에있는 카테고리 카운트 일때만 동작
+        .category__btn.active .category__count,
+        .category__btn:hover .category__count {
+        opacity: 1;
+        top: 0;
+        }
+
+        span 태그 사용시 border-radius의 동그라미가 찌그러지는 경우가 있다.
+            >> display : inline-block을 사용해서 해결하자!
+
+        translateY : +가 아래방향
+        opacity : 투명도 지정
+
+        h3 태그 다음에 간단한 작업을 하고 싶을 때
+        .project__description h3:after { ~ }
+   
