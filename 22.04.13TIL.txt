@@ -1,0 +1,58 @@
+포트폴리오 JS적용하기
+    JS파일 html에 임포트하기
+        <script defer src="main.js"></script>
+            defer : 비동기처리를 지원하는 프로퍼티. 무조껀 넣어줘야됨!
+    
+    선택자불러오기
+        const ~ = document.querySelector('선택자')
+        이후에 ~라는 변수로 선택자를 가져다 쓸 수 있다.
+        선택자는 무엇이든지 될 수 있다. document도 선택자이다.
+
+    요소의 길이 불러오기
+        선택자.getBoundingClientRect().height or width
+        window.scrollY : 스크롤이 어느정도 이루어 졌는지 확인할 수 있다.
+
+    특정 행위(클릭, 스크롤 ...)를 진행했을 때 결과를 반환하기
+        선택자.addEventListener('scroll', () => {
+        ~
+        }
+
+    선택자에 하위 클래스를 추가하기.(특수효과를 주고싶을때)
+        선택자.classList.add('클래스이름')
+        선택자.classList.remove('클래스이름')
+        addEventListener와 if문을 합치면 다양한 특수효과 주기 가능
+
+    메타데이터
+        html에서 우리 임의의 프로퍼티를 주고싶을때
+        data-주고싶은 데이터타입이름 = '선택자'를 줄 수있다.
+        addEventListener의 콜백 인자로 메타데이터에 접근할 수 있다.
+            (event) => {~} 일경우
+            event.target.dataset.propName으로 접근 가능
+
+    특정 선택자로 스크롤하기
+        선택자.scrollIntoView({behavior : smooth~})
+        addEventListener와 비비면 쓸모있는 이동기능을 만들 수 있다.
+        smooth해줘야 스무스하게 이동
+
+    JS에서 html 스타일 접근하기
+        homeCon.style.opacity = 1 - window.scrollY / homeHeight;
+        이런식으로 바로 접근할 수 있다.
+
+    컨테이너 안의 내용을 조작하기
+        클래스를 컨테이너 안의 것을 가져올까? 컨테이너 것을 가져올까?
+            >> 컨테이너것을 가져와야 한다.
+        만약 공통된 내용을 가진 중복되는 클래스를 가져오려면
+            >>querySelectorAll을 가져와야 한다.
+
+    조건에 맞는 녀석들만 보여주기
+        여기서는 foreach와 classList invisible을 이용
+        invisible >> display : none 
+
+    테크닉
+        중간에 if ~ return을 통해 함수를 종료가능하다. else없는 구문을 생성 가능
+        만약 자식만 투명하게 만드려면 ?
+            html들어가서 태그 새로 만드는게 빠름!
+        버튼태그를 이용하면 자식태그가 자동으로 중심정렬된다.
+        div태그는 중심정렬 x
+        중복되는 부분은 메소드화 하도록하자!!!
+
