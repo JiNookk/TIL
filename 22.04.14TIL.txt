@@ -1,0 +1,10 @@
+JS 적용 나머지부분
+
+    classList
+        메서드( 더 찾아보기 )
+        add, remove, toggle ...
+
+    기타 사항
+        transform 요소 다시공부할것!!
+        hover시 border 주의사항 : 없던 border가 생기므로 사이즈가 늘어났다 줄어났다함.
+        >> 평소에도 transparent로 border를 주면 된다!!
