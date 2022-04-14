@@ -9,6 +9,18 @@ JS 적용 나머지부분
         hover시 border 주의사항 : 없던 border가 생기므로 사이즈가 늘어났다 줄어났다함.
         >> 평소에도 transparent로 border를 주면 된다!!
 
+    finaltouch
+        개발자 도구에 들어가서 ctrl shift c로 확인하면 어떤 클래스로 인해 프로퍼티가 적용되었는지 확인가능
+        여기서 테스트를 해본 후 코드에서 변경하면 효율적
+        개발자 도구에 스마트폰 모양을 누르면 스마트폰 화면크기로 볼 수 있다.
+        개발자 도구를 참고하면 styles에 상위에 있을수록 우선순위임을 의미한다!
+        가까운 프로퍼티가 먼 프로퍼티보다 우선순위 : cascading
+        html에서 배치를 바꾸지 않고도 flex 박스를 이용해서 위치를 변경할 수 있다.
+        window.addEventListener('scroll') ~ 을하면 굉장히 성능이 떨어지는 코드를 작동시킨다.
+        콜백자체가 성능이 굉장히 떨어지기 때문이다.        
+
+
+
  IntersectionObserver : 특정 요소를 감지해서 원하는 콜백을 실행시키는 인터페이스
 
         우리가 옵저버에 넣어줄 옵션
@@ -34,6 +46,25 @@ JS 적용 나머지부분
 
 
         const boxes = document.querySelectorAll('.box');
-        
+
         observer에 들어있는 내용으로 boxes에 대해 관찰을 시작한다!
         boxes.forEach((box) => observer.observe(box));
+
+        주의점
+            무조건 배열화해서 사용해야 한다!!
+            map을 이용해서 html정보가 담긴 새로운 배열로 반환할 수 있다.
+                예시
+                    const sectionIds = [
+                    '#home',
+                    '#about',
+                    '#skills',
+                    '#work',
+                    '#testimonials',
+                    '#contact',
+                    ];
+
+                     map을 이용해서 섹션을 담고있는 새로운 배열을 반환받는다.
+                    const sections = sectionIds.map((id) => document.querySelector(id));
+                    const navItems = sectionIds.map((id) =>
+                    document.querySelector(`[data-link="${id}"]`)
+                    );
