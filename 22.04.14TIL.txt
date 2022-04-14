@@ -8,3 +8,32 @@ JS 적용 나머지부분
         transform 요소 다시공부할것!!
         hover시 border 주의사항 : 없던 border가 생기므로 사이즈가 늘어났다 줄어났다함.
         >> 평소에도 transparent로 border를 주면 된다!!
+
+ IntersectionObserver : 특정 요소를 감지해서 원하는 콜백을 실행시키는 인터페이스
+
+        우리가 옵저버에 넣어줄 옵션
+        const options = {
+            root: null, //기본값으로 viewport(브라우저에 보여지는 윈도우 부분)
+            rootMargin: '0px', //viewport 바깥으로 감지영역을 넓힐때
+            threshold: 0.2, // 콜백함수를 언제 실행할지 정하는 기준. 0 > 요소 보이면 바로 실행, 1 > 요소 다 보이면 실행
+        };
+
+        옵저버에 사용할 콜백함수
+        const observerCallback = (entries, observer) => {
+            entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+            });
+        }
+
+        observer변수에 원하는 콜백과 옵션을 넣어 새로운 옵저버를 생성한다.
+        const observer = new IntersectionObserver(observerCallback, options);
+
+
+        const boxes = document.querySelectorAll('.box');
+        
+        observer에 들어있는 내용으로 boxes에 대해 관찰을 시작한다!
+        boxes.forEach((box) => observer.observe(box));
