@@ -115,7 +115,7 @@
                     - 작업한 내용이 많다면 -f옵션으로 푸쉬하는 것이 좋겠지만 작업 내용이 많지 않다면 pull해서 push!
                     repository모든 작업이 다 날아가고 해당 파일만 남음
         - refusing to merge unrelated histories
-            - **--allow-unrelated-histories를 push나 pull 뒤에 붙여서 진행한다.**
+            -  --allow-unrelated-histories를 push나 pull 뒤에 붙여서 진행한다.**
     - 깃의 옵션
         - -f?
         - -u?

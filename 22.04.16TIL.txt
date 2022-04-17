@@ -1,0 +1,39 @@
+JS에서 가장 많이 보는 에러들
+    1. Uncaught TypeError : Cannot read property
+        크롬에서 정의 되지 않은 객체의 property를 읽어내거나 method를 호출했을 때 발생
+        가장 일반적인 경우는 UI component를 렌더링 하는동안 상태 초기화가 제대로 이루어지지 않아서 그렇다.
+    
+        1. Component의 state(여기서는 this.state)는 undefined 인 상태로 시작합니다.
+        2. 비동기적으로 데이터를 가지고 올 때, constructor(여기서는 componentWillMount 또는 componentDidMount)에서 데이터를 불러오는 것과 관계없이 component는 데이터를 불러오기 전에 최소한 한번은 렌더링을 수행합니다. Quiz가 처음 렌더링될 때, this.state.items은 undefined입니다. 결국 ItemList가 undefined인 items를 가졌다는 뜻이기 때문에 "Uncaught TypeError: Cannot read property 'map' of undefined" 에러가 발생하게 되는거죠!
+        이 에러는 굉장히 쉬운 방법으로 고칠 수 있습니다. 가장 간단한 방법은 constructor에서 적절한 초기값을 설정해주는 거에요 ;)
+
+JS 코드
+    메서드화
+        이러한 식으로 반복되는 내용을 메서드화 해서 사용하면 편하다!!
+        function selectNavItem(selected) {
+        selectedNavItem.classList.remove('active');
+        selectedNavItem = selected;
+        selectedNavItem.classList.add('active');
+        }
+
+    스크롤시 이벤트 발생
+        scroll : 모든 스크롤에 발생
+        wheel : 마우스 스크롤만 발생
+
+        window.addEventListener('wheel', () => {
+        if (window.scrollY === 0) {
+            selectedNavIndex = 0;
+        } else if (
+            Math.ceil(window.scrollY + window.innerHeight) ===
+            document.body.clientHeight
+        ) {
+            selectedNavIndex = navItems.length - 1;
+        }
+        selectNavItem(navItems[selectedNavIndex]);
+        });
+        >> 마우스 스크롤시에만 이벤트가 발생
+
+publish
+    github - setting - pages 드가서 퍼블리쉬!
+    html 파일 이름 index.html로 할 것
+    
