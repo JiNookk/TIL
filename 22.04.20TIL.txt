@@ -1,0 +1,22 @@
+ 
+Browser 구조 분석
+    Window : 현재 열려 있는 전체적인 창을 의미한다.
+        DOM, BOM(Browser Object Model), JS로 이루어짐.
+        브라우저에서 가장 최상위의 오브젝트이다.
+        this를 출력하면 window가 나옴.
+            따라서 window 안붙여도 메서드 사용가능
+    Document : Html로 작성한 내용들이 표기되는 부분
+
+    innerHtml을 이용해 손쉽게 태그안에 내용을 집어넣을 수 있다.
+    
+Browser 좌표
+    x : 우측이 +
+    y : 아래가 +
+    Element.getBoundingClientRect()
+        top, left, bottom, right를 이용해 위치 지정 가능
+        JS 함수이기 때문에 왼쪽부터 거리를 계산한다.
+        CSS는 가까운 모서리 부터 거리를 잰다.
+
+    Client vs Page
+        Client : Window에 x,y를 가져옴
+        Page : 문서의 처음부터의 x,y를 가져옴
