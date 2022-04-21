@@ -1,0 +1,28 @@
+GlobalEventHandlers
+    HTMLElement, Document, Window 같은 여러 인터페이스에 흔한 이벤트 핸들러를 의미한다.
+    각각의 인터페이스 들은 하나 달린녀석 이외에도 더 많은 핸들러를 가질 수 있다.
+
+    EventHandler
+        이벤트에 반응할 때, 우리는 이벤트 핸들러를 부착하게 된다.
+        이벤트 핸들러는 이벤트가 fire할때 실행되는 코드블럭이다.
+        우리가 정의한 블록코드가 이벤트에 반응하여 실행될때 우리는 event registering an event handler라고 한다.
+        event listener랑 같은의미임.
+
+    MouseEvent.offsetX
+        타겟 노드의 패딩 모서리와 마우스포인터의 X좌표사이의 오프셋을 의미
+
+Get coordinate
+    overflow : hidden
+        하위 컨텐츠가 끝나면 화면 더이상 안넘어가게 막아주는 코드
+
+    html안에서 style과 script를 다 쓸때는 script태그를 body 가장 밑쪽에 넣어야 한다.
+        호이스팅이 발생하지 않기 때문에 html 요소를 읽지 못할 수도 있다.
+
+    onclick은 화살표함수를 쓸수 없는가?
+    
+    addEventListener에도 onclick에 들어있는 모든 이벤트를 쓸 수 있으므로 addEventListener를 쓰자!
+
+    queryselectorAll 로도 중복된 클래스요소 각각 내용 표시 불가능. 더 연구해보도록 하자.
+
+    혼자 검색하는 역량 기르기!
+    
