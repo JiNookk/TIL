@@ -1,0 +1,101 @@
+프로젝트 제작
+    querySelectorAll을 사용할 때 n번째 요소를 가져오는 방법
+        document.querySelectorAll('.clearfix .box')[i];
+            i번째 query를 가져온다!
+
+    테크닉
+        html
+            아이콘 >>> fontawesome!
+            반복되는 리스트를 만든다? >> list 태그 사용하기!
+            js로 생성할 태그목록을 html에서 먼저 골격을 markup 한후 보면서 js에서 코딩하자
+            list와 divider를 이용해 깔끔한 리스트를 만들 수 있다.
+            header, 본문, footer로 나눠서 markup하자. 태그도 사용해보기
+
+        css
+            *{box-sizing : border-box} 해줘야 전체적 padding이 안으로 적용된다!!
+            overflow-y : 정해놓은 사이즈를 벗어나면 스크롤바를 만들지말지 지정
+
+            참고 사이트
+                cssshadowgenerator : 그림자 생성
+                cssgradient.io : 그래디언트 생성
+
+        js
+            변수 이름 짓기
+                >> 최대한 클래스이름과 비슷하게 camelCase이용
+
+            일단 함수를 먼저 선언한 후 1. 2. 3. 4. 5. ... 이런식으로 우리가 해야할 행위를 정리하자.
+            무조건 최대한 메서드화하는게 간결하고 편하다.
+                정리해둔 기능을 골자로 새로운 함수를 선언해서 문제를 해결하자.(기본 메서드로 바로 해결 안될경우)
+            
+            innerHTML
+                <tag>이 안의 내용을 추가해준다.</tag>
+                element.innerHTML = '내용'
+                내용으로 태그가 들어가도 동작한다.
+
+            주석쓰는법
+                주석은 이 함수가 무엇인지, 코드를 설명하는 건 필요없다.
+                어떤 의도로 만들었는지 어떻게 사용하는게 바람직 한지, 왜사용해야 하는지
+                왜 이런 방식으로 만들었는지 >>> 왜??? 가 굉장히 중요하다.
+
+디버그
+    개발자도구에 들어가서 Source - 관찰하고 싶은 변수가 있는 줄에 체크를 하면 디버그를 진행할 수 있다.
+    Watch에 들어가면 현재 스코프에 잔류하는 변수들을 관찰 할 수 있다.
+
+    step into를 활용하면 한줄씩 내용을 확인할 수 있다.
+
+    Watch에 들어가서 확인하고 싶은 이벤트를 검색할 수 있다.
+        + - 이벤트이름 적고 엔터 >> 방금 진행된 이벤트를 확인한다.(브레이크 걸린 이벤트)
+
+Event
+    MDN Event reference >> 브라우저에서 발생할 수 있는 이벤트들이 굉장히 잘 정리되어있음
+    모든 event를 addeventlistener에 쓸수 있는지 확인!!!
+
+    특정요소에 이벤트 핸들러 등록 >> 특정 이벤트를 진행하면 브라우저가
+    event라는 오브젝트를 만들어서 어떤 부분에서 클릭이 되었는지, 어떤 요소가
+    클릭이 되었는지, 다양한 정보가 들어있는 오브젝트 반환
+
+    EventTarget.addEventListener
+        이벤트 리스너 부착
+    EventTarget.removeEventListener
+        이벤트 리스너 제거
+    EventTarget.dispatchEvent
+        인공적인 이벤트 발생
+    
+Bubbling & capturing
+    부모 컨테이너가 여러 자식 컨테이너가 있을 때 event동작 시 발생하는 현상
+    capturing
+        최하위 자식 컨테이너에서 이벤트가 발생하면 capturing으로 인해
+        부모컨테이너에서 부터 차근차근 내려와서 이벤트가 실행된다.
+    Bubbling
+        이벤트가 호출되면 상위 부모에게 이벤트를 전달한다.
+        부모의 이벤트핸들러를 호출하면서 부모가 가지고 있는 이벤트핸들러가 전부 동작한다.
+    
+    target vs CurrentTarget
+        target : 이벤트가 처음 발생한 곳
+        CurrentTarget : 이벤트가 현재 발생한곳
+
+    stopPropagation vs stopImmediatePropagation
+        stopPropagation : 위로의 버블링을 막는다.
+        stopImmediatePropagation : 자기 자신말고 버블링 중단.
+            하지만 같은 element의 이벤트가 여러개 등록되어있을경우 선행 이벤트는 수행한다.
+        둘다 절대 쓰지 말것!
+
+event-prevent
+    preventDefault
+        진행중인 이벤트를 취소하는 녀석
+        passive이벤트는 취소할 수 없다.
+            ex) 스크롤링 같은 녀석들.
+            옵션을 지정해 passive를 해제할 순 있지만 될 수 있다면 하지 말것
+
+event-delegation(이벤트 위임)
+    중복되는 클래스나 태그에 이벤트리스너를 등록할때 사용
+        why? : 일일히 이벤트리스너를 등록하면 굉장히 비효율적임.
+        조건에 맞는 녀석들을 선별해서 등록하는게 좋다.
+    
+    ex)
+        const ul = document.querySelector('ul');
+        ul.addEventListener('click', (event) => {
+            if (event.target.tagName == 'LI') {
+            event.target.classList.add('selected');
+            }
+        });    

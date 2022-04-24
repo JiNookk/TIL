@@ -1,0 +1,4 @@
+Shopping list
+    KeyboardEvent.code
+    물리적인 키보드를 의미한다. 하지만 키보드 값 그자체를 반환하지는 않음.
+    

@@ -1,0 +1,96 @@
+window_scroll
+    Mdn에서 내용을 보면 properties를 확인할 수 있다.
+    property들을 가지고 우리가 실제로 적용시켜볼 수 있다.
+
+    scrollTo : Window의 ~로 이동해라.
+    scrollBy : x, y px만큼 추가로 이동해라.
+    element.scrollIntoView : 해당 요소의 위치로 이동해라.
+
+DOM
+    Document Object Model
+        간단한 html파일을 만들면 브라우저에서 각각의 태그를 노드로 변환.
+        요약 : HTML : Tag -> JavaScript : Node(객체임.)
+            Node에는 갖가지 HTML 태그의 정보들이 들어있다.
+            상속도
+                EventTarget - Node - Document, Element, Text ...
+                모두 EventTarget을 뿌리로 상속받음 >> 모든 요소들에서 Event 발생 가능
+
+    DOM Tree
+        우리 HTML 태그들이 브라우저에서 그에 맞는 오브젝트 Node로 변환
+
+EventTarget
+    MDN에서 보면 상속관계를 볼 수 있다.
+    EventTarget의 메서드를 보면 AddEventListener가 존재하는 것을 볼 수 있다.
+
+    Node의 개념도를 보면 더 좋은것들을 확인 가능
+
+CSSOM
+    DOM이 html만을 노드화 한것이라면 CSSOM는 CSS까지 포함한 놈이라고 볼수 있다.
+    가장 부모노드에 font size : 14라고 적용을 한다면 자식들 전부가 영향을 받을 것이다!(cascading)
+
+    순서 : DOM 생성 - CSSOM 생성 - 둘이 병합 >> RenderTree 생성 (최종 브라우저내용)
+        Render트리에는 사용자에게 궁극적으로 보여지는 녀석들만 남게됨.
+            >> Head, Display : none 이런놈들 다 빼버림.
+
+Critical rendering path
+    이거 매우중요! 잘 숙지해야 성능이 좋은 어플리케이션을 만들 수 있다.
+    브라우저의 화면출력 순서 : request/response > loading > scripting > rendering
+                            > layout > painting
+        Construction part : request ~ scripting
+            DOM, CSSOM, RenderTree
+            Construction part를 빠르게 만드려면?
+                DOM 요소가 작을수록 빠르다!
+                    불필요 div 태그, wrapping 사용 자제
+        Operation part  : lendering ~ 
+            layout, paint, composition
+            Operation part 빠르게 만드려면 ? 
+                layout이 재배치 되지 않도록 필요한 아이템만 사용!
+                composition만 다시일어나는게 베스트!
+
+    layout
+        어디에 어느것을 배치할 것인지 대략적인 구상만 하는 단계
+    paint
+        브라우저에 바로 그림을 그리는게 아니라, layer(층)별로 나누어서
+        이미지 paint를 비트맵으로 준비해놓는 단계
+            왜 한번에 안하고 레이어 별로 나누나?
+                수정할 때 실수한 레이어만 지우면 되기 때문임.
+    composition
+
+layer
+    개발자도구에서 layers에 들어가면 레이어들을 입체적으로 볼 수 있다.
+
+즐겨찾기 필수 사이트
+    CSSTriggers.com
+        내가 쓰는 CSS 속성값이 좋은지 안좋은지를 확인할 수 있다.
+        layout, paint, composite중 어떤것이 발생하는지 확인할 수 있다.
+            Blink : 크롬브라우저
+
+퍼포먼스 개선을 확인하려면?
+    개발자도구 - Performance - record - stop
+    보통 60프레임을 기준으로 잡는다면 16.7ms frame을 기준으로 성능을 평가한다.
+    layoutshift 발생 >> 성능 안좋다는 뜻!
+    ctrl shift p 하면 커맨드 팔레트 사용가능
+    rendering을 클릭해서 show layout shift regions 클릭하면 실시간으로 레이아웃 시프팅 발생확인 가능
+    버벅거리면 안 좋다는 것을 확인할 수 있따.
+
+DOM요소 조작
+    querySelector : 만약 중복되는 녀석들이 있다면 첫번째녀석 반환.
+                    못찾으면 null 반환
+        querySelector에서도 emmet사용가능하다!!
+            img[src="img/avatar.png"] : src가 img~인 img 태그를 찾음
+    
+    JS로 새로운 태그생성, 조작하기
+        document.createElement('tag') : 태그 생성 메서드
+        element.setAttribute('props', 'contents') : 태그에 property 부여 (props ="contents")
+        element.textContent = "string" : element의 태그안에 내용기입
+
+    기존 노드에 새로운 노드 부착하기
+        oldElement.append('newElement')
+            oldElement에 newElement부착
+        insertBefore(elementbefore, elementafter)
+            elementafter전에 elementbefore부착
+
+innerHtml vs element
+    한번 업데이트한다음에 다시 변경할일 없다 >> innerHtml
+    Element의 변수를 가지고 있으면서 조금 더 세부적인 동작을 한다 >> Element
+    
