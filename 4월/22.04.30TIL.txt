@@ -1,0 +1,43 @@
+게임 프로젝트 마무리
+    JS
+        arrow function사용시 함수 hoisting 발생안하니깐 최대한 콜백선언 같은 경우에만 사용할 것!
+        함수의 인자로도 삼항연산자 가능!!! >> win or lose
+    
+        Audio >> new Audio로 사용하면 됨.
+
+
+리팩토링
+    규모가 큰 코드를 효율적으로 줄이는 과정!
+        메서드화, 기타등등....
+    
+        관련된 기능에 따라 js파일을 분리하는과정?
+
+    순서   
+        html에서 rough하게 영역을 나눈후 js파일을 보면서 클래스화한다!
+
+    변수선언
+        생성자안에 멤버변수를 선언한다.(dom 요소)
+            EventListener도 생성자 안에 선언.
+            선언한 함수도 사용할때 생성자 안에서는 this를 붙여야한다!        
+            
+            const popUp = document.query~
+            >> this.popUp = document.query~
+
+    메서드 선언
+        function없이 함수 선언하면 된다.
+        기존 js파일의 함수내용을 this.만 조심하면서 사용하면 됨.
+        
+        setClickListener(onClick){
+            this.onClick = onClick
+        }
+        parameter onClick : 클릭시 발생할 콜백함수
+        this.onClick : onClick 함수
+
+        메서드 이름 선언방법
+            기존 함수에 클래스의 이름이 들어가면 지운뒤 사용한다.
+    
+    주의사항
+        클래스 이름 앞에 export를 하면 다른 js파일에서 import할 수 있다
+        html에서 type = "module"을 해주어야 한다!
+        js파일들이 여러개일 경우 src폴더를 만들어서 넣어줄 것!
+        

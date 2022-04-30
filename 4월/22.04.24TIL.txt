@@ -91,6 +91,8 @@ event-delegation(이벤트 위임)
     중복되는 클래스나 태그에 이벤트리스너를 등록할때 사용
         why? : 일일히 이벤트리스너를 등록하면 굉장히 비효율적임.
         조건에 맞는 녀석들을 선별해서 등록하는게 좋다.
+        
+    중복되는 클래스의 부모를 querySelector로 가져온뒤 자식을 이벤트를 이용해 조건문으로 선별!
     
     ex)
         const ul = document.querySelector('ul');
