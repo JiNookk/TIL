@@ -1,0 +1,26 @@
+this 바인딩
+    JS에서는 클래스의 멤버함수를 다른 콜백으로 전달할 때 클래스 정보가 사라진다.
+        >> 클래스 정보를 묶어서 전달해야 한다!! : this Binding
+        방법 
+            this.onClick = this.onClick.bind(this)
+            또는 
+            arrow function
+            event => this.onClick(event)
+            또는
+            생성자 밖에서 정의된 함수 onClick을 변수로 만들고 arrow function으로 선언한다!
+
+리팩토링
+    클래스가 할 역할을 명확하게 먼저 생각하고 리팩토링을 진행하라!!
+
+    클래스 한군데에만 쓸 내용은 const로 클래스밖에 선언해도됨.
+    음악 재생처럼 단순한내용? 들도 그냥 class말고 모듈로 쓰도록 하자
+        어떤 클래스에서도 사용가능하게!!!!
+        
+    클래스화 >> 암호화라고 생각하면 편하려나?
+
+    main.js에 있는 모든 내용을 리팩토링으로 처리해주어야 한다!!!
+
+    클래스안에 다른 클래스를 임포트해서 쓸 수 있다!!
+
+    main에서 받아온 콜백을 하위 js에서 효과적으로 쓸 방법 고민!!
+         this.onGameStop && this.onGameStop(this.win ? 'win' : 'cancel');
