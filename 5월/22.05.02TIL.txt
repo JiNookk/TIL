@@ -1,0 +1,218 @@
+리팩토링
+    Builder Pattern
+        우리의 클래스 정보를 외부로 알리고 싶지 않을 때 사용하는 클래스
+    예시
+        원래 클래스에 입력할 인자를 선언한다.
+        export class GameBuilder {
+        
+        gameDuration(duration) {
+            this.gameDuration = duration;
+            return this;
+        }
+
+        carrotCount(num) {
+            this.carrotCount = num;
+            return this;
+        }
+
+        bugCount(num) {
+            this.bugCount = num;
+            return this;
+        }
+
+        먼저 위 함수들로 인자 값들을 지정해준 뒤
+        build 함수를 호출한뒤 변수에 담으면 원래 클래스와 같은 역할을 한다.
+        build() {
+            return new Game(this.gameDuration, this.carrotCount, this.bugCount);
+        }
+        }
+    
+    JS에서 타입을 보장하는 방법
+        결과물 반환시 문자열을 그대로 전달하면 도중에 수정하거나 오타를 낼 수 있어 객체를 얼린후 export해서 쓴다!!
+        export const Reason = Object.freeze({
+        win: 'win',
+        lose: 'lose',
+        cancel: 'cancel',
+        });
+
+        이제 Reason.win, ~~으로 사용가능
+        이렇게 사용을 해야 실수할 확률이 급격히 낮아진다.
+
+    리팩토링시 주의사항
+        간단한걸 구현하는데 굳이 리팩토링하는게 아닌지
+            >> over engineering
+        수정하는데 시간이 오히려 오래 걸리는게 더 문제.
+
+Event loop
+    배울 내용
+        프로세스와 쓰레드의 차이점이 무엇인지
+        자바스크립트는 멀티쓰레딩이 가능한지
+        자바스크립트가 브라우저가 어떻게 동작하는지
+        사용자가 우리의 웹 어플리케이션을 이용할 때 스무스하게 보이려면 60fps유지!
+        Task Queue와 Microtask Queue의 차이점
+    
+    다른사람에게 막힘없이 설명할 수 있는 프로그래머가 되자!
+
+프로세스 vs 쓰레드
+    프로세스 
+        정의
+            운영체제 위에서 독립적으로 메모리에서 연속적으로 실행되는 프로그램 
+            ex) 음악 프로그램, 사진 프로그램 ....
+            프로그램 응답없음 >> 프로세스가 죽은거임
+        
+        구조 
+            Code - Stack - Heap - Data
+                Code : 프로그램을 실행하기위해 우리가 작성한 코드
+                Stack : 함수들이 어떤 순서로 실행되어야 하는지, 함수가 끝나면 어디로 다시 돌아가야 되는지 정보 저장 
+                Heap : 오브젝트를 생성하거나 데이터를 만들 때 데이터들이 저장되는 공간
+                        동적으로 할당된 변수들이 저장되는 곳임.
+                Data : 전역 변수나 스태틱 변수들이 저장되는 곳
+    
+    쓰레드
+        정의
+            한 프로세스 안에서 여러개가 배정되는 일꾼
+            자기들만의 수행해야 되는 함수의 호출을 기억해야 하기 때문에 Stack이 할당되어져 있다.
+            하나의 프로세스를 위해 일해야 하므로 프로세스의 code, heap, data에 접근(업데이트)가능
+        
+        동작 메커니즘
+            만약 음악을 재생하면서 사진을 편집하는 어플리케이션을 쓴다면
+            음악을 재생하는 쓰레드 하나
+            사진을 편집하는 쓰레드
+            서버에서부터 음악데이터를 받아와서 처리하는 쓰레드
+            동시 다발적으로 발생할 수 있다.
+
+JS 런타임 환경 (엔진 이해, 스택 개념 정리)
+    JS : 싱글쓰레드 언어
+        업무를 여러 쓰레드에 나눌 수가 없다.
+        언어 자체에는 멀티쓰레드가 없지만 브라우저 안에는 여러가지 쓰레드가 존재.
+        Web API를 쓰면 멀티쓰레딩 가능
+    
+    JS Runtime Environment
+        JS가 동작하는 실행 환경에서는 다양한 방식을 통해 멀티쓰레딩 같은 역할을 할 수 있다.
+        event loop를 이용해서 다양한 동작을 실행할 수 있다.
+
+    JS Engine
+        Memory Heap에 우리가 선언한 오브젝트, 변수가 이리저리 저장됨.
+        Call stack : main() -> first() -> second() -> ...
+            차곡차곡 호출한 함수가 쌓인다(변수도)
+            LIFO : 후입선출 방식으로 데이터가 처리된다.
+
+            함수내용에서 return을 만나면 함수가 종료되면서 call stack에 쌓인 이전단계함수로 돌아간다!
+
+        재귀함수 : 잘못 쓴다면 콜스택이 넘쳐버린다! (stack overflow)
+    
+Web APIs
+    브라우저에서 제공하기 때문에 멀티쓰레딩을 쓸수 있따.
+        ex) fetch를 이용해 백엔드에서 데이터 받기, setTimeout을 이용해 일정 시간뒤에 콜백 실행
+
+    어떻게 JS callStack과 맞물려 멀티쓰레드로 동작할까?
+        setTimeout을 동작시켰다고 가정한다
+        main - first - second - setTimeout 순서로 callStack에 쌓임
+        setTimeout이 실행되면 Web API에서 Timer실행됨.
+        Timer 시간동안 JS와 Timer는 병렬적으로 실행됨.
+        지정된 시간 끝나면 Web API는 Task Queue에 setTimeout에 등록된 콜백을 등록한다.
+            Queue : FIFO를 채용하는 자료구조
+        Queue에 있는 콜백은 그러면 언제 실행되나? : Event loop가 관여
+            Event loop는 계속 loop를 돌다가 callStack이 전부 비워졌을때 Queue에 있는 callback을 하나하나 꺼내 callStack으로 던져넣어준다.
+            한번에 하나의 콜백만 가져옴!
+
+eventloop의 cycle
+    callStack - Web API - Render - Microtask Queue - TaskQueue
+
+Task Queue 
+    setTimeout, click callback 담당
+
+Microtask queue
+    eventloop가 가져온 callStack의 콜백은 무조건 끝날때 까지 보장이 된다!         
+
+    기능
+        mutation observer
+        promise then
+            promise에 then이라는 콜백을 등록해놓으면 promise가 잘 resolve된 뒤에 Microtask Queue에 콜백을 던진다.
+        두개의 콜백을 담당하는 Queue
+
+Render
+    Request Animation Frame - Render Tree - Layout - Paint
+    Request Animation Frame callback을 담당한다.
+
+Event loop 
+    while(true) 같은 loop가 계속계속 돌고 있다.
+    콜스택에 수행중인 함수가 있다면 멈춘 후 함수가 끝날 때까지 그쪽에 머물러 있다.
+    
+    render
+        렌더쪽으로는 갈 수도 있고 안 갈 수도 있다.
+            Why?
+                우리는 60fps만 유지하면 된다.
+                eventloop의 주기는 그것보다 훨씬 빠르기 때문에 그냥 지나가는 경우도 있음.
+ 
+    Microtask Queue
+        event loop가 Microtask Queue에 도착
+        eventloop 멈춤 >> callback들을 callStack으로 전달한다.
+        중간에 Microtask Queue으로 들어온 새로운 콜백들까지 전부 실행한다!
+
+    Task Queue
+        event loop가 Task Queue에 도착
+        eventloop가 Task Queue에 쌓인 하나의 콜백을 콜스택에 전달한다.
+        콜스택이 비워지면 Task Queue에 몇개의 콜백이 쌓여있던지 event loop가 다음 단계로 진행된다.
+
+나선임 반박하기
+    클릭 리스너 안에 일련의 dom요소 지정 코드의 순서는 상관없다!
+    event loop가 TaskQueue의 클릭이벤트가 끝날때까지 대기한 후 Rendering을 진행하기 때문이다.
+
+후배에게 가르쳐 주기
+    button.addEventListener('click', () => {
+        box.style.transition = 'transfrom 1s ease-in'
+        box.style.transfrom = 'translateX(800px)'
+        box.style.transfrom = 'translateX(500px)'
+    })
+
+    왜 박스가 500px까지 가고 멈출까?
+        event loop가 TaskQueue의 click이벤트가 콜스택에서 끝난뒤에 렌더링을 진행한다
+        따라서 최종적으로 render Tree에는 translateX(500px)만 남아있게 된다.
+
+브라우저 죽이기
+    무한루프가 발생하면 페이지가 죽는다.
+        렉이걸린다 라고 생각하면 편할 듯
+
+setTimeout의 비밀
+    근데 얘는 왜 무한루프를 만들어도 브라우저가 안죽지?
+    setTimeout으로 무한루프를 만들어도
+    setTimeout의 eventloop가 끝나고 한번씩 render요소를 업데이트하기 때문에 화면에 css요소들이 반응을 한다! 
+
+Promise의 비밀 (Microtask)
+    promise로 Microtask Queue 무한루프를 만들면?
+    Microtask Queue는 쌓여있는 녀석들이 끝날때까지 움직이지 않으므로 무한루프가 생길 경우
+    render tree까지 도달하지 못한다!
+
+Request Animation Frame
+    나선임 반박하기의 내용이랑 비슷하다.
+    나선임의 내용은 거의 TaskQueue단계에서 끝났지만 이번엔 RAF단계를 알아보자.
+    Task Queue에 bgc를 beige - orange - red 순서로 등록하는 클릭 이벤트가 등록 되었다고 해보자.
+    RAF Queue에도 beige - orange - red 순서로 이벤트가 진행된다!
+    최종적으로 red bgc가 적용된다는 것을 알 수 있다.
+
+    setTimeout(callback, 0)으로 다음 이벤트루프때 이 내용을 동작해달라는 장치를 만들 수 있다.
+
+디버깅 꿀팁
+    Watch 
+        우리가 보고싶은 변수를 검색할 수 있다.
+    
+    Call Stack 
+        함수가 어떤 순서대로 호출되어 졌는지 확인
+        규모가 큰 프로젝트에서 어디서 왔는지 모르는 함수에 break point를 잡자!
+        함수이름 뒤에 n번째 줄을 참고하면 이 함수가 끝난뒤 어디로 갈지 참고할 수 있다!
+    
+    Scope
+        현재 스코프 (local)과 전역 스코프(global)을 확인할 수 있따.
+
+    resume script execution
+        다음 브레이크 포인트까지 코드를 진행
+    
+    step over
+        다음 한줄로 이동
+
+    step into
+        호출되는 함수로 이동
+    
+    step out
+        함수 호출이 끝난 후 다음 첫 번째 줄로 이동!
