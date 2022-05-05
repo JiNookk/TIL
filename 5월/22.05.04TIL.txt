@@ -1,0 +1,92 @@
+git tag
+    git history에 commit이 점점 많아지면
+    git log가 길어질 때 특정 커밋을 즐겨찾기하는 기능
+    semantic versioning
+        v major.minor.fix
+        major
+            굉장히 큰 변화가 있을 떄 올라가는 버전
+        minor
+            조금의 기능이 업데이트 되었을 때 올라가는 버전
+        fix
+            기존에 존재하는 기능에서 오류를 개선했을떄 올라가는 버전
+    
+tag 데모
+    git hist를 보면 몇가지 히스토리가 보인다.
+    git tag ellie를 하면 현재 head에 tag가 생성된다.
+
+    git tag version hashcode : 특정 커밋에 버전을 부여한다.
+        뒤에 -a, -m을 붙일 수 있다.
+    git tag -l "v1.0.*" : version이 1.0.~ 인 녀석들을 확인한다.
+    
+    checkout
+        checkout tag 로 원하는 태그로 손쉽게 이동할 수 있다.
+        checkout -b branchname tagname : tagname 태그로 이동하면서 branchname을 가진 브랜치를 만든다.   
+
+    push
+        서버에 싱크하고 싶을때 사용하는 깃 명령어
+        git push origin 
+            tagname : 특정 태그 푸쉬
+            --tags : 모든 태그 푸쉬
+            --delete tagname : 특정 태그 삭제
+            
+branch를 왜써야 할까?
+    기본적으로 master 한 줄기에서 커밋이 발생
+        검증된 제품들만 master 브랜치에서 사용
+        새로 개발한 제품은 다른 별도의 브랜치를 만든다.
+            feature A 브랜치를 만든다면 현재 head는 feature A브랜치를 가리킴
+            버그별로, 기능별로, 리팩토링 별로 각각 브랜치를 만든다면 동시다발적으로 다수의 개발자가 병렬적인 작업 가능
+            feature 별로 검증이 완료되면 master branch로 merge한다.
+            보통 각각의 feature의 커밋을 하나의 커밋으로 합해서 merge한다.
+        
+브랜치 기본 사용법
+    git +
+    branch : 현재 repository의 branch들을 확인한다.
+        -all : 서버에 있는 모든 branch들의 정보를 보여줌. (원격저장소)
+        branchname : branchname이라는 새로운 브랜치를 만듬.
+        -v : 최신 커밋들도 확인할 수 있다.
+        -d branchname : 브랜치를 삭제한다.
+        --move branchname1 name2
+            브랜치 이름을 2번 이름으로 변경한다.
+        --merged : 현재 브랜치에 merge 된 녀석을 확인할 수 있다.
+            브랜치 생성만 하고 커밋을 추가로 안한 녀석들도 포함된다.
+        --no-merged : merge 안된녀석들 표시
+
+    log
+        master..test
+            master커밋과 test 커밋 사이의 내용들을 볼수있다.
+            .. : 사이의 내용을 다루는 녀석
+
+    push 
+        origin --delete branchname
+            원격저장소의 브랜치를 삭제한다.
+        --set-upstream origin nam 2
+            바뀐 브랜치 이름을 원격저장소에 적용한다.
+
+    merge branchname
+        branch를 masterbranch에 merge한다.
+
+    switch branchname : branchname branch로 이동한다.
+        -C : 브랜치를 생성한 후 바로 이동한다.
+        checkout과의 차이점 : switch > branch, checkout > commit
+    
+    checkout 
+        이전 커밋으로 돌아가면 파일들도 이전으로 돌아가는걸 볼 수 있따.
+        checkout MASTER로 다시 최신 커밋으로 돌아갈 수 있다.
+        -b branchname : 브랜치를 만들면서 그 브랜치로 체크아웃 한다.
+
+merge
+    fast-forward merges
+        masterbranch에서 하나의 브랜치를 그대로 물려받고 기존 브랜치는 지워버리는 merge
+        단점은 merge한 흔적이 없다.
+    --abort : merge 취소
+
+merge option no-ff
+    fast-forward말고 명확하게 commit에 merge한 흔적을 남기고 싶을때!
+    merge option no-ff >> 기존 branch 삭제
+
+three-way merge
+    fast forward merge가 불가능한 상황이 있다.
+        새로운 브랜치의 분기점에 다른 커밋이 붙어버리면 ff 불가능!
+        따라서 ff로 진행하려 했던 녀석과 분기점의 커밋을 merge 해야한다!
+    
+    git merge를 하면 알아서 three-way merge 진행된다.

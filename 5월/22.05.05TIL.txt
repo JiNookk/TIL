@@ -1,0 +1,90 @@
+Conflict 해결 방법
+    해결하고자 하는 파일을 직접열어서 충돌이 일어나는 부분을 본다.
+    master branch 내용을 쓰고 싶다면 from master부분을 남기고 나머지 부분삭제
+    feature branch 내용을 쓰고 싶다면 from feature 부분을 남기고 나머지 삭제
+    둘다 쓰고 싶으면 둘다사용
+    해결 뒤에 git add > git merge --continue
+    
+    중요 포인트! 임의로 아무것도 추가해서는 안된다!!! MERGE conflict만 해결해야함.
+    
+VSCode로 Conflict 해결하기
+    vscode에 이 내용을 추가하면 
+        git merge가 안되는 상황에서 git mergetool을 하면 ui로 merge를 고를 수 잇따 
+    [merge]
+        tool = vscode
+    [mergetool "vscode"]
+        cmd = code --wait $MERGED
+ 해결된 원본 파일과 origin이 붙은 비원본 파일이 남아있다.
+    git config --global mergetool.keepBackup false > origin 생성 끄기
+
+    clean  
+        깃의 디렉토리에 있는 파일들을 삭제한다.
+        -fd : false로 디렉토리에 있는 녀석들을 정리한다.
+    
+    orig파일이 있다면 keepbackup false > clean -fd > git merge
+    > git mergetool > git merge --continue(head와 다른 브랜치 합침)
+
+rebase
+    three way merge 상태에서 ff merge가 가능하도록 중간 녀석을 바꾸는 것
+    다른개발자와 동시에 작업하는 브랜치를 rebase하면 위험하다.
+        커밋의 포인터를 옮기면 완전히 다른 커밋이 됨.
+        따라서 다른 개발자가 만지고 있는 커밋은 아예 다른커밋
+
+    git rebase branchname 으로 rebase 가능
+
+브랜치들 사이에서의 rebase 팁
+    git rebase -onto master branch1 branch2
+        master branch에 branch1에 있는 branch2를 rebase한다.
+
+cherry pick
+    특정 커밋만 가져와서 새로운 커밋을 만들고 싶을때 사용
+    cherry-pick hashcode로 사용 가능
+
+Stash란 무엇이고 왜 중요할까
+    임시 저장공가닝라고 생각하면 된다. 커밋전 단계의 파일들을 저장가능.
+
+    stash push로 진행 가능
+        -u : untracked 파일들도 stash에 집어넣기
+        --keep-index : staging area에 있는걸 유지하면서 stash에 저장하고 싶을 때
+    
+    stash list
+        stash의 목록을 보여줌
+
+    stash show stash-id
+        stash-id를 활용한 정보를 보여준다.
+
+    stash apply
+        stash에 있는 녀석을 다시 작업환경 (wd나 sa)으로 돌려 보내기
+        stash list는 변동이 없다.
+        뒤에 따로 stashid를 붙이지 않으면 list의 가장 윗녀석을 돌려보낸다.
+    
+    stash pop
+        apply와 같지만 옮겨진 녀석들은 list에서 제거된다.
+
+    stash drop
+        필요없는 stash id 삭제
+    
+    stash clear
+        전체목록 삭제
+    
+    stash branch branchname
+        새로운 브랜치를 만들면서 파일들 내용 변경
+
+
+커밋을 삭제하거나 되돌리는 방법
+    로컬에 있는 녀석들만 커밋을 수정할 수 있음.
+    다른 개발자와 공유중인 커밋을 수정하면 ㅈ된다
+
+커밋전 단계 취소하는 방법
+
+    나쁜 커밋
+        WIP : working in progress : 진행중임 >> 커밋하면 안되는 놈 
+        . : 대충지은 이름 (빨리 지어야 할 때)
+
+    restore : 바로 전단계로 돌려놓는 명령어
+        WD에 있는 녀석들은 초기화!
+        SA에 있는 녀석들은 WD로! >> --staged 붙여야함.
+        --source : 특정 커밋(해쉬코드)으로 restore 진행
+            --source = hashcode filename
+            
+
