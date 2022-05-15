@@ -1,0 +1,34 @@
+fetch vs pull
+    둘다 원격저장소에서 커밋을 가져온다!
+
+    fetch 
+        새로운 커밋을 가져오지만 head는 바뀌지않음. 기존커밋을 가리킴
+        그냥 fetch하면 최신 커밋 전부를 가져온다.
+        origin master : origin remote의 master 브랜치를 가져온다.
+
+    pull
+        새로운 커밋을 가져오면서 head도 최신 커밋을 가리킴
+    
+pull 심화과정
+    만약 같은 파일에 대해서 local과 remote에서 동시에 다른 내용의 커밋이 발생하면 어떻게 될까?
+        >> pull이나 push했을 때 merge conflict가 발생한다.
+        >> mergetool을 이용해 병합을 처리해주어야 한다.
+    
+    해결과정    
+        pull (기본적으로 merge임) - mergetool로 conflict처리 - merge --continue - push
+        pull --rebase >> 뒷 내용은 같다.
+    
+오픈소스 프로젝트 참여방법
+    fork - clone - commit - pull request
+    
+    fork : 오픈소스 프로젝트를 그대로 복사해서 나의 remote로 가져온다.
+
+    clone : remote로 복사해온 프로젝트를 local로 가져온다.
+
+    commit : remote로 수정해온 녀석들을 조져버린다.
+
+    pull request : 원작자의 깃헙에 풀리퀘스트를 보낸다. 변경된 세세한 내용을 보내줘야 한다.
+
+빠르게 디버깅하는 방법
+    Git blame : 세세한 수정일자, 수정한 사람까지 볼수 있는 내역
+    git lens extension을 쓰면 vscode에서도 blame을 볼 수 있다.
