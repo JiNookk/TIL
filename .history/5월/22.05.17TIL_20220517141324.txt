@@ -1,0 +1,4 @@
+환경변수 설정
+	export varname = varcontents
+	이렇게 환경변수를 영구적으로 설정할 수 있다.
+	환경변수를 사용할 때는 $varname으로 접근할 수 있다.
