@@ -1,0 +1,10 @@
+Lifecycle 함수들 이용하기
+    React docs 한번씩 읽어보기
+        Composition vs Inheritance
+            react는 Composition 훨씬 더 많이 사용함
+        
+        Lifecycle
+            컴포넌트를 생성해서 브라우저에 표기가 될때, 브라우저와 통신하거나 타이머를 시작하거나 기능을 이용할 때 필요한 함수
+            Component의 메서드임.
+            componentDid~?
+            componentWill~? 
