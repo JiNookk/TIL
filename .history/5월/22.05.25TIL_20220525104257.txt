@@ -1,0 +1,6 @@
+POSTCSS
+    sass나 less과 굉장히 비슷하다.
+    장점
+        플러그인이 굉장히 다양하다.
+        create-react-app에도 내장되어 있다.
+        모듈화가 되기 때문에 BEM안써도 된다.
