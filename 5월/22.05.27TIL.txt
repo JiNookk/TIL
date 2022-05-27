@@ -1,0 +1,109 @@
+프로젝트 계획하기.
+    재사용이 되는가 안되는가를 확인해서 어떤 내용을 쓸지 고민하자!
+    header : search bar
+    main : list(동영상)
+    
+    클릭했을때
+    header : 똑같다.
+    main : 디테일 컴포넌트(아래에는 동영상 설명), 우측에는 추천리스트
+        - 반응형으로 줄어들면 추천동영상 아래로 옮기기
+
+    fetch method
+        HTTP 파이프라인을 접근하고 조작할 수 있는 JS인터페이스를 제공한다.
+        fetch로 리턴된 프로미스 객체는 http에러를 리턴하지 않는다. (404, 500에러가 발생해도.)
+        네트워크 실패나 리퀘스트가 완료되기전에 막힐때만 거부를 한다.
+
+        사용법
+            fetch(데이터를 가져올 주소)
+            .then(response => response.json())
+            .then(data => console.log(data))
+
+            fetch안의 리소스에서 http데이터를 가져온다. 
+            하지만 json형태가 아니기 때문에 response.json()으로 리턴을 받는다.
+
+비동기(Async)
+    동기적 / 비동기적 콜백
+    promise
+        동기를 좀더 깔끔하게 작성할 수 있음.
+    async - await
+        비동기 코드를 동기적으로 보일 수 있음.
+
+    JS : 싱글쓰레드여서 동기적인 프로그램임.
+        동기적 ? > 앞의 내용이 끝나야 뒤의 내용이 실행되는 특성
+        비동기 => 멀티쓰레드라고 생각하면 편하다.         
+
+    promise 객체
+        세 가지 상태를 반환한다. (pending, fulfilled, rejected)
+        비동기 적인 작업이 끝났음을 알려주는 객체! (성공 또는 실패)
+            pending : 방금 만들어져서 성공, 실패 둘다 아닌 상태
+            fulfilled : 성공
+            rejected : 실패
+
+        
+        사용법(Promise 생성자 함수)
+            function runInDelay(){
+                return new Promise((resolve,reject) => {
+                    if(!seconds || seconds < 0) {
+                        reject(new Error(~~))
+                    }
+                    setTimeout(() => {
+                        resolve()
+                    },seconds * 1000)
+                });
+            }
+            resolve : 반환이 성공적일 때 실행되는 구문
+            reject : 반환이 실패했을 때 호출되는 구문
+            runInDelay()
+            .then(필요한 일 수행)
+            .catch(에러를 처리)
+            .finally(성공 실패 관계없이 무조건 호출 -> 무조건 호출되야 하는 일 수행 )   
+
+        Promise chaining
+            프로미스는 then,catch를 이용해서 chaining이 가능하다!
+            catch에서 에러를 잡아내더라도 return을 이용해 chaining을 이어나갈 수 있다.
+            전달인자와 리턴의 인자가 같은 경우 생략 가능
+            then의 scope가 벗어나면 변수가 초기화 된다.
+
+    Promise 병렬처리
+        여러개의 promise 함수의 return값을 전달받고 싶다면??
+        then의 중첩을 이용해 조진다! (체이닝이 아닌 then안에 then을 넣는 식으로!)
+        하지만 이렇게하면 promise가 직렬적으로 연결되서 시간이 오래 걸림
+            >> promise.all로 병렬적으로 실행할 수 있다.
+
+        Promise.all : then의 중첩없이 병렬적으로 프로미스 객체를 실행할 수 있다.
+            Promise.all([getBanana(), getApple()]) 
+             .then((fruits) => console.log("hi", fruits));\
+            에러발생 메서드도 넣으면 catch처리를해도 then구문은 반환이 되지 않는다.
+
+        Promise.race : 병렬적으로 Promise 객체를 실행시키고, 가장 빨리 반환되는 녀석을 리턴함.
+            Promise.race([getBanana(), getApple()]) 
+             .then((fruits) => console.log("race", fruits));\
+        Promise.allSettled : then의 중첩없이 병렬적으로 프로미스 객체를 실행할 수 있다.
+            Promise.all([getBanana(), getApple()]) 
+             .then((fruits) => console.log("hi", fruits));\
+                각각의 프로미스 객체가 성공했는지 실패했는지를 반환해준다.
+
+async, await   
+    동기적인 코드처럼 보이지만 사실 비동기 처리를 해주는 기능
+    then 체이닝을 대신해서 훨씬 간결해보이는 promise객체 처리가 가능하다.
+
+        앞에서 getApple, getBanana라는 프로미스 객체 함수가 선언 되었다고 가정
+
+        async function fetchFruits() {
+            const banana = await getBanana();
+            const apple = await getApple();
+            return [banana, apple]; 
+        }
+
+        fetchFruits()
+        .then(console.log) => 한번에 둘다 받아올 수 있음.
+
+fetch
+     fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+            
+    브라우저의 콘솔에 json형태의 목록들이 잘 받아져 오는 걸 볼 수 있다.
+    data도 프로미스 객체임!
+    따라서 .then chaining을 통해서 처리해줘야 한다. 왜냐면 .json이 끝나기 전에 return 되면 pending 상태이기 때문이다.
+    
